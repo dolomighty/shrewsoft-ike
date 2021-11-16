@@ -1,0 +1,83 @@
+<ui version="4.0" >
+ <class>ikecBanner</class>
+ <widget class="QDialog" name="ikecBanner" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>340</width>
+    <height>204</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Login Banner</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="ikec.qrc" >:/png/png/ikec.png</iconset>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QTextBrowser" name="textBrowserMOTD" />
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>386</width>
+         <height>16</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="buttonOk" >
+       <property name="windowModality" >
+        <enum>Qt::ApplicationModal</enum>
+       </property>
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize" >
+        <size>
+         <width>32767</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="text" >
+        <string>&amp;OK</string>
+       </property>
+       <property name="shortcut" >
+        <string/>
+       </property>
+       <property name="autoDefault" >
+        <bool>true</bool>
+       </property>
+       <property name="default" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>buttonOk</tabstop>
+  <tabstop>textBrowserMOTD</tabstop>
+ </tabstops>
+ <resources>
+  <include location="ikec.qrc" />
+ </resources>
+ <connections/>
+</ui>

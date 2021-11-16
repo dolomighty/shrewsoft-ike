@@ -1,0 +1,25 @@
+#!/bin/sh
+
+/bin/launchctl stop net.shrew.iked
+/bin/launchctl unload /Library/LaunchDaemons/net.shrew.iked.plist
+
+/usr/bin/killall "Shrew Soft VPN Client Connect"
+/usr/bin/killall "Shrew Soft VPN Access Manager"
+/usr/bin/killall iked
+
+/bin/rm -f /etc/iked.conf*
+/bin/rm -f /Library/LaunchDaemons/net.shrew.iked.plist
+
+/bin/rm -f /usr/bin/ikec
+/bin/rm -f /usr/sbin/iked
+/bin/rm -f /usr/share/man/man1/ikec.1
+/bin/rm -f /usr/share/man/man1/qikea.1
+/bin/rm -f /usr/share/man/man1/qikec.1
+/bin/rm -f /usr/share/man/man5/iked.conf.5
+/bin/rm -f /usr/share/man/man8/iked.8
+/bin/rm -f /usr/share/man/man1/ikec.1
+/bin/rm -f /usr/sbin/iked
+/bin/rm -f /usr/sbin/iked
+
+/bin/rm -fr /Applications/Shrew\ Soft*
+/bin/rm -fr /Library/Frameworks/ShrewSoft*
