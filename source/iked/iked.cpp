@@ -415,7 +415,7 @@ void _IKED::loop()
 	// start our ike network thread
 	//
 
-	ith_nwork.exec( this );
+	ith_nwork.exec( this );	// segault inside
 
 	//
 	// start our ike pfkey thread
@@ -433,18 +433,22 @@ void _IKED::loop()
 	// enter event timer loop
 	//
 
+	printf("========= %s:%d\n",__FILE__,__LINE__);
 	ith_timer.run();
 
 	//
 	// wait for all threads to exit
 	//
 
+	// qui non arriva mai
+	printf("========= %s:%d\n",__FILE__,__LINE__);
 	cond_run.wait( -1 );
 
 	//
 	// cleanup
 	//
 
+	printf("========= %s:%d\n",__FILE__,__LINE__);
 	socket_done();
 	ikes.done();
 	log.close();

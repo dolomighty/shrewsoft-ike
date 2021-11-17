@@ -109,6 +109,7 @@
 #include "xauth.h"
 #include "xconf.h"
 
+
 //
 // Win32 specific
 //
@@ -142,7 +143,10 @@
 
 namespace yy{ class conf_parser; };
 
+
 #endif
+
+#define HERE fprintf(stderr,"========= %s:%d\n",__FILE__,__LINE__);
 
 //
 // IKED constants

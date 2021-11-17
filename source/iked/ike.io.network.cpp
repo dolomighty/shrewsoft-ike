@@ -41,6 +41,11 @@
 
 #include "iked.h"
 
+
+
+
+
+
 //
 // ike network io thread
 //
@@ -229,6 +234,7 @@ long _IKED::loop_ike_nwork()
 	return LIBIKE_OK;
 }
 
+
 long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SADDR & saddr_dst )
 {
 	//
@@ -277,7 +283,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 		// value for the responder cookie
 		//
 
-		bool null_cookie = true;
+				bool null_cookie = true;
 		for( long x = 0; x < ISAKMP_COOKIE_SIZE; x++ )
 		{
 			if( cookies.r[ x ] )
@@ -287,7 +293,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 			}
 		}
 
-		if( !null_cookie )
+				if( !null_cookie )
 		{
 			log.txt( LLOG_INFO,
 				"ww : ike packet from %s ignored, unknown phase1 sa for peer\n"
@@ -312,7 +318,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 
 		IDB_TUNNEL * tunnel = NULL;
 
-		if( !idb_list_tunnel.find(
+				if( !idb_list_tunnel.find(
 				true,
 				&tunnel,
 				NULL,
@@ -339,7 +345,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 				return LIBIKE_OK;
 			}
 
-			tunnel = new IDB_TUNNEL( peer, NULL, &saddr_dst, &saddr_src );
+					tunnel = new IDB_TUNNEL( peer, NULL, &saddr_dst, &saddr_src );
 
 			if( tunnel == NULL )
 			{
@@ -360,7 +366,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 		// and that we allow contact from this peer
 		//
 		
-		if( exchange != tunnel->peer->exchange )
+				if( exchange != tunnel->peer->exchange )
 		{
 			log.txt( LLOG_INFO,
 				"ww : ike packet from %s ignored, exchange type mismatch for peer\n",
@@ -381,7 +387,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 			return LIBIKE_OK;
 		}
 
-		if( packet.get_msgid() )
+				if( packet.get_msgid() )
 		{
 			log.txt( LLOG_INFO,
 				"ww : ike packet from %s ignored, invalid message id for exchange type\n",
@@ -420,7 +426,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 	// the recorded tunnel port value
 	//
 
-	if( !phase1_chk_port( ph1, &saddr_src, &saddr_dst ) )
+			if( !phase1_chk_port( ph1, &saddr_src, &saddr_dst ) )
 	{
 		ph1->dec( true );
 		return LIBIKE_FAILED;
@@ -437,7 +443,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 		// then dump the packet
 		//
 
-		if( !ph1->vendopts_l.flag.frag )
+				if( !ph1->vendopts_l.flag.frag )
 		{
 			log.txt( LLOG_ERROR, "!! : fragmented packet received but local support is disabled\n" );
 			ph1->dec( true );
@@ -448,7 +454,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 		// process the ike fragment payload
 		//
 
-		bool complete = false;
+				bool complete = false;
 		long result = payload_get_frag( packet, ph1, complete );
 		if( result != LIBIKE_OK )
 		{
@@ -464,7 +470,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 		// otherwise we have nothing more to do
 		//
 
-		if( !complete )
+				if( !complete )
 		{
 			log.txt( LLOG_INFO, "ii : ike fragment received, waiting on complete packet\n" );
 			ph1->dec( true );
@@ -476,7 +482,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 		// complete packets header and proceed
 		//
 
-		packet.read(
+				packet.read(
 			cookies,
 			payload,
 			exchange,
@@ -499,7 +505,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 
 		case ISAKMP_EXCH_IDENT_PROTECT:
 		case ISAKMP_EXCH_AGGRESSIVE:
-			result = process_phase1_recv( ph1, packet, payload );
+					result = process_phase1_recv( ph1, packet, payload );
 			break;
 
 		//
@@ -507,7 +513,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 		//
 
 		case ISAKMP_EXCH_QUICK:
-			result = process_phase2_recv( ph1, packet, payload );
+					result = process_phase2_recv( ph1, packet, payload );
 			break;
 
 		//
@@ -515,7 +521,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 		//
 
 		case ISAKMP_EXCH_INFORMATIONAL:
-			result = process_inform_recv( ph1, packet, payload );
+					result = process_inform_recv( ph1, packet, payload );
 			break;
 
 		//
@@ -523,7 +529,7 @@ long _IKED::process_ike_recv( PACKET_IKE & packet, IKE_SADDR & saddr_src, IKE_SA
 		//
 
 		case ISAKMP_EXCH_CONFIG:
-			result = process_config_recv( ph1, packet, payload );
+					result = process_config_recv( ph1, packet, payload );
 			break;
 
 		//

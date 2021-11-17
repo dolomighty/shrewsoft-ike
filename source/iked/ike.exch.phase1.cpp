@@ -41,6 +41,7 @@
 
 #include "iked.h"
 
+
 long _IKED::process_phase1_recv( IDB_PH1 * ph1, PACKET_IKE & packet, unsigned char payload )
 {
 	long result = LIBIKE_OK;
@@ -299,6 +300,7 @@ long _IKED::process_phase1_recv( IDB_PH1 * ph1, PACKET_IKE & packet, unsigned ch
 			case ISAKMP_PAYLOAD_NAT_VXX_DISC:
 			case ISAKMP_PAYLOAD_NAT_RFC_DISC:
 			{
+				
 				BDATA natd;
 				result = payload_get_natd( packet, natd, ph1->hash_size );
 				if( result == LIBIKE_OK )
@@ -315,6 +317,7 @@ long _IKED::process_phase1_recv( IDB_PH1 * ph1, PACKET_IKE & packet, unsigned ch
 
 			case ISAKMP_PAYLOAD_VEND:
 			{
+				
 				BDATA vend;
 				result = payload_get_vend( packet, vend );
 				if( result == LIBIKE_OK )
@@ -329,6 +332,7 @@ long _IKED::process_phase1_recv( IDB_PH1 * ph1, PACKET_IKE & packet, unsigned ch
 
 			case ISAKMP_PAYLOAD_NOTIFY:
 			{
+				
 				IKE_NOTIFY notify;
 				result = payload_get_notify( packet, &notify );
 				if( result == LIBIKE_OK )
@@ -424,6 +428,7 @@ long _IKED::process_phase1_recv( IDB_PH1 * ph1, PACKET_IKE & packet, unsigned ch
 			if(  ( ph1->xstate & XSTATE_RECV_ID ) &&
 				!( ph1->lstate & LSTATE_CHKIDS ) )
 			{
+				
 				result = phase1_chk_idr( ph1 );
 
 				if( result != LIBIKE_OK )
@@ -444,6 +449,7 @@ long _IKED::process_phase1_recv( IDB_PH1 * ph1, PACKET_IKE & packet, unsigned ch
 
 		if( result != LIBIKE_OK )
 		{
+			
 			ph1->status( XCH_STATUS_DEAD, XCH_FAILED_MSG_FORMAT, packet.notify );
 
 			return result;
@@ -541,6 +547,7 @@ long _IKED::process_phase1_send( IDB_PH1 * ph1 )
 					case IKE_AUTH_PRESHARED_KEY:
 					case XAUTH_AUTH_INIT_PSK:
 					{
+						
 						payload_add_nonce( packet, ph1->nonce_l, ph1->natt_pldtype );
 						break;
 					}
@@ -549,6 +556,7 @@ long _IKED::process_phase1_send( IDB_PH1 * ph1 )
 					case XAUTH_AUTH_INIT_RSA:
 					case HYBRID_AUTH_INIT_RSA:
 					{
+						
 						payload_add_nonce( packet, ph1->nonce_l, ISAKMP_PAYLOAD_CERT_REQ );
 						payload_add_creq( packet, ISAKMP_CERT_X509_SIG, ph1->natt_pldtype );
 						ph1->xstate |= XSTATE_SENT_CR;
@@ -562,6 +570,7 @@ long _IKED::process_phase1_send( IDB_PH1 * ph1 )
 
 				if( ph1->natt_pldtype != ISAKMP_PAYLOAD_NONE )
 				{
+					
 					phase1_gen_natd( ph1 );
 					phase1_add_natd( ph1, packet, ISAKMP_PAYLOAD_NONE );
 				}
@@ -632,6 +641,7 @@ long _IKED::process_phase1_send( IDB_PH1 * ph1 )
 					case IKE_AUTH_SIG_RSA:
 					case XAUTH_AUTH_INIT_RSA:
 					{
+						
 						size_t pld_beg = packet.size() + 4;
 						payload_add_ph1id( packet, ph1->ph1id_l, ISAKMP_PAYLOAD_CERT );
 						size_t pld_end = packet.size();
@@ -899,13 +909,14 @@ long _IKED::process_phase1_send( IDB_PH1 * ph1 )
 
 	if( ph1->exchange == ISAKMP_EXCH_AGGRESSIVE )
 	{
-		//
+
+			//
 		// isakmp initiator
 		//
 
 		if( ph1->initiator )
 		{
-			//
+							//
 			// sa + ke + no + id [ + vid's ] packet
 			//
 
@@ -914,7 +925,7 @@ long _IKED::process_phase1_send( IDB_PH1 * ph1 )
 				//
 				// write packet header
 				//
-
+		
 				PACKET_IKE packet;
 				packet.write( ph1->cookies, ISAKMP_PAYLOAD_SA, ph1->exchange, 0 );
 
@@ -982,7 +993,7 @@ long _IKED::process_phase1_send( IDB_PH1 * ph1 )
 				// perform nat traversal check
 				//
 
-				phase1_chk_natd( ph1 );
+				phase1_chk_natd( ph1 );		// asdasd
 
 				//
 				// build packet for authentication type
@@ -1449,6 +1460,7 @@ long _IKED::process_phase1_send( IDB_PH1 * ph1 )
 						cfg->add( true );
 						process_config_send( ph1, cfg );
 						cfg->dec( true );
+						
 					}
 				}
 
@@ -1538,6 +1550,9 @@ long _IKED::process_phase1_send( IDB_PH1 * ph1 )
 
 	return LIBIKE_OK;
 }
+
+
+
 
 long _IKED::phase1_gen_keys( IDB_PH1 * ph1 )
 {
@@ -2550,6 +2565,7 @@ long _IKED::phase1_gen_natd( IDB_PH1 * ph1 )
 	if( ph1->lstate & LSTATE_GENNATD )
 		return LIBIKE_OK;
 
+
 	BDATA natd;
 	if( !natd.size( ph1->hash_size ) )
 		return LIBIKE_MEMORY;
@@ -2575,6 +2591,8 @@ long _IKED::phase1_gen_natd( IDB_PH1 * ph1 )
 	// hash for local address
 	//
 
+	ctx_hash=EVP_MD_CTX_new();
+	assert(ctx_hash);
 	EVP_DigestInit( ctx_hash, ph1->evp_hash );
 	EVP_DigestUpdate( ctx_hash, ph1->cookies.i, ISAKMP_COOKIE_SIZE );
 	EVP_DigestUpdate( ctx_hash, ph1->cookies.r, ISAKMP_COOKIE_SIZE );
@@ -2616,6 +2634,9 @@ bool _IKED::phase1_chk_natd( IDB_PH1 * ph1 )
 	// if we are rekeying, skip this
 	//
 
+
+
+
 	if( ph1->tunnel->lstate & TSTATE_NATT_FLOAT )
 		return true;
 
@@ -2636,12 +2657,14 @@ bool _IKED::phase1_chk_natd( IDB_PH1 * ph1 )
 			BDATA natd_l;
 			BDATA natd_r;
 
+
 			//
 			// make sure remote peer negotiated natt
 			//
 
 			if( !ph1->natt_version )
 			{
+				
 				log.txt( LLOG_INFO, "ii : nat-t is unsupported by remote peer\n" );
 				break;
 			}
@@ -2660,6 +2683,7 @@ bool _IKED::phase1_chk_natd( IDB_PH1 * ph1 )
 
 			if( !ph1->natd_hash_r.get( natd_r, 0 ) )
 			{
+				
 				log.txt( LLOG_ERROR,
 					"!! : no remote desitnation hash available for comparison\n" );
 				break;
@@ -2667,6 +2691,7 @@ bool _IKED::phase1_chk_natd( IDB_PH1 * ph1 )
 
 			for( long index = 1; index < ph1->natd_hash_l.count(); index++ )
 			{
+				
 				ph1->natd_hash_l.get( natd_l, index );
 				if( natd_r == natd_l )
 				{
@@ -2686,6 +2711,7 @@ bool _IKED::phase1_chk_natd( IDB_PH1 * ph1 )
 
 			if( !ph1->natd_hash_l.get( natd_l, 0 ) )
 			{
+				
 				log.txt( LLOG_ERROR,
 					"!! : no local desitnation hash available for comparison\n" );
 				break;
@@ -2693,6 +2719,7 @@ bool _IKED::phase1_chk_natd( IDB_PH1 * ph1 )
 
 			for( long index = 1; index < ph1->natd_hash_r.count(); index++ )
 			{
+				
 				ph1->natd_hash_r.get( natd_r, index );
 				if( natd_l == natd_r )
 				{
@@ -2711,6 +2738,7 @@ bool _IKED::phase1_chk_natd( IDB_PH1 * ph1 )
 
 			if( xlated_l || xlated_r )
 			{
+				
 				ph1->tunnel->natt_version = ph1->natt_version;
 				break;
 			}
