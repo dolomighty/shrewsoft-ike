@@ -56,7 +56,7 @@
 %lex-param   { IKED & iked }
 %locations
 %debug
-%define parse.error verbose
+%error-verbose
 
 // Symbols.
 %union

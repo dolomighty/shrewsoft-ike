@@ -1,0 +1,12 @@
+--- source/iked/ike.idb.phase2.cpp  2012-11-20 00:28:52.000000000 +0100
++++ source/iked/ike.idb.phase2.cpp    2020-05-27 13:01:39.992138660 +0200
+@@ -438,7 +438,8 @@
+        }
+ 
+        xl.size( dh_size );
+-       long result = BN_bn2bin( dh->pub_key, xl.buff() );
++       const BIGNUM *pub_key=DH_get0_pub_key(dh);
++       long result = BN_bn2bin( pub_key, xl.buff() );
+ 
+        //
+        // fixup public buffer alignment

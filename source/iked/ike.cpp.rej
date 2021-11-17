@@ -1,0 +1,88 @@
+--- source/iked/ike.cpp 2009-02-12 03:35:43.000000000 +0100
++++ source/iked/ike.cpp   2020-05-27 12:57:15.320422858 +0200
+@@ -391,11 +391,10 @@
+    // init cipher key and iv
+    //
+ 
+-   EVP_CIPHER_CTX ctx_cipher;
+-   EVP_CIPHER_CTX_init( &ctx_cipher );
++   EVP_CIPHER_CTX *ctx_cipher=EVP_CIPHER_CTX_new();
+ 
+    EVP_CipherInit_ex(
+-       &ctx_cipher,
++       ctx_cipher,
+        sa->evp_cipher,
+        NULL,
+        NULL,
+@@ -403,11 +402,11 @@
+        0 );
+ 
+    EVP_CIPHER_CTX_set_key_length(
+-       &ctx_cipher,
++       ctx_cipher,
+        ( int ) sa->key.size() );
+ 
+    EVP_CipherInit_ex(
+-       &ctx_cipher,
++       ctx_cipher,
+        NULL,
+        NULL,
+        sa->key.buff(),
+@@ -419,12 +418,12 @@
+    //
+ 
+    EVP_Cipher(
+-       &ctx_cipher,
++       ctx_cipher,
+        data + sizeof( IKE_HEADER ),
+        data + sizeof( IKE_HEADER ),
+        ( int ) size - sizeof( IKE_HEADER ) );
+ 
+-   EVP_CIPHER_CTX_cleanup( &ctx_cipher );
++   EVP_CIPHER_CTX_free( ctx_cipher );
+ 
+    log.bin(
+        LLOG_DEBUG,
+@@ -595,11 +594,10 @@
+    // encrypt all but header
+    //
+ 
+-   EVP_CIPHER_CTX ctx_cipher;
+-   EVP_CIPHER_CTX_init( &ctx_cipher );
++   EVP_CIPHER_CTX *ctx_cipher=EVP_CIPHER_CTX_new();
+ 
+    EVP_CipherInit_ex(
+-       &ctx_cipher,
++       ctx_cipher,
+        sa->evp_cipher,
+        NULL,
+        NULL,
+@@ -607,11 +605,11 @@
+        1 );
+ 
+    EVP_CIPHER_CTX_set_key_length(
+-       &ctx_cipher,
++       ctx_cipher,
+        ( int ) sa->key.size() );
+ 
+    EVP_CipherInit_ex(
+-       &ctx_cipher,
++       ctx_cipher,
+        NULL,
+        NULL,
+        sa->key.buff(),
+@@ -619,12 +617,12 @@
+        1 );
+ 
+    EVP_Cipher(
+-       &ctx_cipher,
++       ctx_cipher,
+        data + sizeof( IKE_HEADER ),
+        data + sizeof( IKE_HEADER ),
+        ( int ) size - sizeof( IKE_HEADER ) );
+ 
+-   EVP_CIPHER_CTX_cleanup( &ctx_cipher );
++   EVP_CIPHER_CTX_free( ctx_cipher );
+ 
+    //
+    // store cipher iv data
