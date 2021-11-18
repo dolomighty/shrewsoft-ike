@@ -220,8 +220,6 @@ void _IKEC::show_stats()
 
 	char * state;
 	char * xport;
-	char * frag;
-	char * dpd;
 
 	switch( cstate )
 	{
@@ -273,18 +271,8 @@ void _IKEC::show_stats()
 			break;
 	}
 
-	if( !stats.frag )
-		frag = disabled;
-	else
-		frag = enabled;
-
-	if( !stats.dpd )
-		dpd = disabled;
-	else
-		dpd = enabled;
-
 	log( 0,
-		"current connection satus\n"
+		"current connection status\n"
 		" - : tunnel state      = %s\n"
 		" - : IPsec SAs in use  = %i\n"
 		" - : IPsec SAs dead    = %i\n"
@@ -297,6 +285,7 @@ void _IKEC::show_stats()
 		stats.sa_dead,
 		stats.sa_fail,
 		xport,
-		frag,
-		dpd );
+		stats.frag ? enabled : disabled,
+		stats.dpd  ? enabled : disabled
+	);
 }

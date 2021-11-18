@@ -23,7 +23,7 @@ n:policy-nailed:0
 n:policy-list-auto:1
 n:phase1-life-kbytes:0
 n:vendor-chkpt-enable:0
-s:client-saved-username:telecomitalia\00519575
+s:client-saved-username:TELECOMITALIA\00519575
 s:network-host:dacvpn.telecomitalia.it
 s:client-auto-mode:pull
 s:client-iface:virtual
