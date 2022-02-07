@@ -44,9 +44,6 @@
 #undef NDEBUG
 #include <assert.h>
 
-#include <vector>
-
-
 //==============================================================================
 // basic data class
 //
@@ -61,7 +58,10 @@ _BDATA & _BDATA::operator =( _BDATA & bdata )
 
 bool _BDATA::operator ==( _BDATA & bdata )
 {
-	return bdata == data_buff;
+	if( bdata.size() != size() )
+		return false;
+
+	return ( memcmp( bdata.buff(), buff(), size() ) == 0 );
 }
 
 bool _BDATA::operator !=( _BDATA & bdata )
@@ -71,7 +71,9 @@ bool _BDATA::operator !=( _BDATA & bdata )
 
 _BDATA::_BDATA()
 {
-	data_buff = std::vector<unsigned char>;
+	data_buff = NULL;
+	data_real = 0;
+	data_size = 0;
 	data_oset = 0;
 }
 
@@ -94,7 +96,7 @@ size_t _BDATA::grow( size_t new_real )
 //		,new_real
 //	);
 
-	if( new_real >= 1024*1024 ) return data_real;
+		if( new_real >= 1024*1024 ) return data_real;
 	if( new_real <= data_real ) return data_real;
 
 	// new_real > data_real
@@ -538,9 +540,17 @@ bool _BDATA::get( void * buff, size_t size )
 	return true;
 }
 
-void _BDATA::del()
+void _BDATA::del( bool null )
 {
-	data_buff.clear();
+	if( data_buff )
+	{
+		memset( data_buff, 0, data_real );
+		delete [] data_buff;
+	}
+
+	data_buff = NULL;
+	data_real = 0;
+	data_size = 0;
 	data_oset = 0;
 }
 
