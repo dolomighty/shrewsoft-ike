@@ -178,14 +178,33 @@ bool _CONFIG_MANAGER::file_vpn_load( CONFIG & config )
 	else
 		path.add( sites_user );
 
-	path.ins( PATH_DELIM, 1, path.size() - 1 );
-	path.ins( config.get_id(), strlen( config.get_id() ), path.size() - 1 );
 
-	return file_vpn_load( config, path.text() );
+	path.ins( PATH_DELIM, 1, path.size() - 1 );
+
+//    fprintf(stderr,"\n%s:%d config.get_id() %s"
+//        ,__FILE__
+//        ,__LINE__
+//        ,config.get_id()
+//    );
+
+	path.ins( config.get_id(), strlen( config.get_id()), path.size()-1 );
+
+//    fprintf(stderr,"\n%s:%d"
+//        ,__FILE__
+//        ,__LINE__
+//    );
+
+	return file_vpn_load( config, path.text());
 }
 
 bool _CONFIG_MANAGER::file_vpn_load( CONFIG & config, const char * path, bool save_update )
 {
+
+//    fprintf(stderr,"\n%s:%d path %s"
+//        ,__FILE__
+//        ,__LINE__
+//        , path
+//    );
 
 #ifdef WIN32
 
