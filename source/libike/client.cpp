@@ -1524,11 +1524,16 @@ bool _CLIENT::config_load()
 	config.set_id( site_name.text() );
 
 	bool loaded = manager.file_vpn_load( config );
+
+#ifdef WIN32
 	if( !loaded )
 	{
 		config.set_ispublic( true );
 		loaded = manager.file_vpn_load( config );
+		// fix: ritorna true anche se il file non c'è
 	}
+#endif
+
 
 	if( !loaded )
 	{

@@ -44,6 +44,11 @@
 #include "openssl/hmac.h"
 #include "openssl/sha.h"
 
+
+#undef NDEBUG
+#include <assert.h>
+
+
 bool _CONFIG_MANAGER::file_enumerate( CONFIG & config, int & index )
 {
 
@@ -170,41 +175,33 @@ bool _CONFIG_MANAGER::file_enumerate_public( CONFIG & config, int & index )
 
 }
 
+
+
+
+
+
 bool _CONFIG_MANAGER::file_vpn_load( CONFIG & config )
 {
 	BDATA path;
-	if( config.get_ispublic() )
+	if( config.get_ispublic() ){
 		path.add( sites_all );
-	else
+	}else{
 		path.add( sites_user );
-
+	}
 
 	path.ins( PATH_DELIM, 1, path.size() - 1 );
-
-//    fprintf(stderr,"\n%s:%d config.get_id() %s"
-//        ,__FILE__
-//        ,__LINE__
-//        ,config.get_id()
-//    );
-
 	path.ins( config.get_id(), strlen( config.get_id()), path.size()-1 );
-
-//    fprintf(stderr,"\n%s:%d"
-//        ,__FILE__
-//        ,__LINE__
-//    );
 
 	return file_vpn_load( config, path.text());
 }
 
-bool _CONFIG_MANAGER::file_vpn_load( CONFIG & config, const char * path, bool save_update )
-{
 
-//    fprintf(stderr,"\n%s:%d path %s"
-//        ,__FILE__
-//        ,__LINE__
-//        , path
-//    );
+
+
+
+
+bool _CONFIG_MANAGER::file_vpn_load( CONFIG & config, const char * path, bool save_update /*=true*/ )
+{
 
 #ifdef WIN32
 
@@ -215,8 +212,9 @@ bool _CONFIG_MANAGER::file_vpn_load( CONFIG & config, const char * path, bool sa
 #else
 
 	FILE * fp = fopen( path, "r" );
-	if( fp == NULL )
+	if( fp == NULL ){
 		return false;
+	}
 
 #endif
 
@@ -338,6 +336,13 @@ bool _CONFIG_MANAGER::file_vpn_load( CONFIG & config, const char * path, bool sa
 
 	return false;
 }
+
+
+
+
+
+
+
 
 bool _CONFIG_MANAGER::file_vpn_save( CONFIG & config )
 {
