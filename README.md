@@ -1,13 +1,16 @@
 <pre>
 
 
-config per cli (no qt)
+config per cli - no qt:
 
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=NO -DETCDIR=/etc -DNATT=YES
 
 
-make
-sudo make install
+
+
+compile+install:
+
+make && sudo make install
 
 
 
