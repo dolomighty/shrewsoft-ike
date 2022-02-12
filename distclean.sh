@@ -6,6 +6,7 @@ make clean
     find . -type f -name Makefile
     find . -type d -name "CMakeFiles"
     echo build
+    echo ike.zip
 ) | xargs rm -fR 
 
 #cmake -Bbuild -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=NO -DETCDIR=/etc -DNATT=YES
