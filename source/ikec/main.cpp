@@ -133,7 +133,5 @@ int main( int argc, char ** argv )
 
     if( ikec.generic_fail()) return 1;
 
-    getchar();
-
 	return 0;
 }
