@@ -289,3 +289,16 @@ void _IKEC::show_stats()
 		stats.dpd  ? enabled : disabled
 	);
 }
+
+
+
+
+void _IKEC::wait()
+{
+	// busywait per il termine del thread
+	while(true){
+		sleep(1);
+		if( cstate == CLIENT_STATE_DISCONNECTED )break;
+	}
+}
+

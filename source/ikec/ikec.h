@@ -75,7 +75,8 @@ typedef class _IKEC : public _CLIENT
 	bool read_key( char & value );
 	bool read_str( BDATA & value );
 	bool read_pwd( BDATA & value, const char * prompt );
-	void show_stats();
+    void show_stats();
+    void wait();
 
 }IKEC;
 

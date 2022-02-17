@@ -47,8 +47,8 @@
 
 bool _CLIENT::run_init()
 {
-	memset( &peer, 0, sizeof( peer ) );
-	memset( &xconf, 0, sizeof( xconf ) );
+	memset( &peer, 0, sizeof( peer ));
+	memset( &xconf, 0, sizeof( xconf ));
 
 	//
 	// load the config into ipsecc
@@ -70,7 +70,7 @@ bool _CLIENT::run_init()
 
 	// netowrk host
 
-	if( !config.get_string( "network-host", text, MAX_CONFSTRING, 0 ) )
+	if( !config.get_string( "network-host", text, MAX_CONFSTRING, 0 ))
 	{
 		log( STATUS_FAIL, "config error : network-host undefined\n" );
 		return false;
@@ -100,7 +100,7 @@ bool _CLIENT::run_init()
 
 	// network port
 
-	if( !config.get_number( "network-ike-port", &numb ) )
+	if( !config.get_number( "network-ike-port", &numb ))
 	{
 		log( STATUS_FAIL, "config error : network-ike-port undefined\n" );
 		return false;
@@ -112,15 +112,15 @@ bool _CLIENT::run_init()
 
 	peer.xconf_mode = CONFIG_MODE_NONE;
 
-	if( config.get_string( "client-auto-mode", text, MAX_CONFSTRING, 0 ) )
+	if( config.get_string( "client-auto-mode", text, MAX_CONFSTRING, 0 ))
 	{
-		if( !strcmp( "push", text ) )
+		if( !strcmp( "push", text ))
 			peer.xconf_mode = CONFIG_MODE_PUSH;
 
-		if( !strcmp( "pull", text ) )
+		if( !strcmp( "pull", text ))
 			peer.xconf_mode = CONFIG_MODE_PULL;
 
-		if( !strcmp( "dhcp", text ) )
+		if( !strcmp( "dhcp", text ))
 			peer.xconf_mode = CONFIG_MODE_DHCP;
 	}
 
@@ -132,24 +132,24 @@ bool _CLIENT::run_init()
 
 #ifdef OPT_NATT
 
-	if( config.get_string( "network-natt-mode", text, MAX_CONFSTRING, 0 ) )
+	if( config.get_string( "network-natt-mode", text, MAX_CONFSTRING, 0 ))
 	{
-		if( !strcmp( "enable", text ) )
+		if( !strcmp( "enable", text ))
 		{
 			peer.natt_mode = IPSEC_NATT_ENABLE;
 			xconf.rqst |= IPSEC_OPTS_CISCO_UDP;
 		}
 
-		if( !strcmp( "force", text ) )
+		if( !strcmp( "force", text ))
 			peer.natt_mode = IPSEC_NATT_FORCE_RFC;
 
-		if( !strcmp( "force-draft", text ) )
+		if( !strcmp( "force-draft", text ))
 			peer.natt_mode = IPSEC_NATT_FORCE_DRAFT;
 
-		if( !strcmp( "force-rfc", text ) )
+		if( !strcmp( "force-rfc", text ))
 			peer.natt_mode = IPSEC_NATT_FORCE_RFC;
 
-		if( !strcmp( "force-cisco-udp", text ) )
+		if( !strcmp( "force-cisco-udp", text ))
 		{
 			peer.natt_mode = IPSEC_NATT_FORCE_CISCO;
 			peer.natt_port = htons( 10000 );
@@ -158,12 +158,12 @@ bool _CLIENT::run_init()
 
 		// nat-t udp port
 
-		if( config.get_number( "network-natt-port", &numb ) )
+		if( config.get_number( "network-natt-port", &numb ))
 			peer.natt_port = htons( ( unsigned short ) numb );
 
 		// nat-t keep-alive rate
 
-		if( config.get_number( "network-natt-rate", &numb ) )
+		if( config.get_number( "network-natt-rate", &numb ))
 			peer.natt_rate = numb;
 	}
 
@@ -174,18 +174,18 @@ bool _CLIENT::run_init()
 	peer.frag_esp_mode = IPSEC_FRAG_DISABLE;
 	peer.frag_ike_mode = IPSEC_FRAG_DISABLE;
 
-	if( config.get_string( "network-frag-mode", text, MAX_CONFSTRING, 0 ) )
+	if( config.get_string( "network-frag-mode", text, MAX_CONFSTRING, 0 ))
 	{
-		if( !strcmp( "enable", text ) )
+		if( !strcmp( "enable", text ))
 			peer.frag_ike_mode = IPSEC_FRAG_ENABLE;
 
-		if( !strcmp( "force", text ) )
+		if( !strcmp( "force", text ))
 			peer.frag_ike_mode = IPSEC_FRAG_FORCE;
 
 		// ike fragmentation size
 
 		peer.frag_ike_size = 520;
-		if( !config.get_number( "network-frag-size", &numb ) )
+		if( !config.get_number( "network-frag-size", &numb ))
 			peer.frag_ike_size = numb;
 	}
 
@@ -222,28 +222,28 @@ bool _CLIENT::run_init()
 
 	peer.idtype_l = 255;
 
-	if( !config.get_string( "ident-client-type", text, MAX_CONFSTRING, 0 ) )
+	if( !config.get_string( "ident-client-type", text, MAX_CONFSTRING, 0 ))
 	{
 		log( STATUS_FAIL, "config error : ident-client-type undefined\n" );
 		return false;
 	}
 
-	if( !strcmp( "none", text ) )
+	if( !strcmp( "none", text ))
 		peer.idtype_l = ISAKMP_ID_NONE;
 
-	if( !strcmp( "asn1dn", text ) )
+	if( !strcmp( "asn1dn", text ))
 		peer.idtype_l = ISAKMP_ID_ASN1_DN;
 
-	if( !strcmp( "keyid", text ) )
+	if( !strcmp( "keyid", text ))
 		peer.idtype_l = ISAKMP_ID_KEY_ID;
 
-	if( !strcmp( "fqdn", text ) )
+	if( !strcmp( "fqdn", text ))
 		peer.idtype_l = ISAKMP_ID_FQDN;
 
-	if( !strcmp( "ufqdn", text ) )
+	if( !strcmp( "ufqdn", text ))
 		peer.idtype_l = ISAKMP_ID_USER_FQDN;
 
-	if( !strcmp( "address", text ) )
+	if( !strcmp( "address", text ))
 		peer.idtype_l = ISAKMP_ID_IPV4_ADDR;
 
 	if( peer.idtype_l == 255 )
@@ -256,28 +256,28 @@ bool _CLIENT::run_init()
 
 	peer.idtype_r = 255;
 
-	if( !config.get_string( "ident-server-type", text, MAX_CONFSTRING, 0 ) )
+	if( !config.get_string( "ident-server-type", text, MAX_CONFSTRING, 0 ))
 	{
 		log( STATUS_FAIL, "config error : ident-server-idtype undefined\n" );
 		return false;
 	}
 
-	if( !strcmp( "any", text ) )
+	if( !strcmp( "any", text ))
 		peer.idtype_r = ISAKMP_ID_NONE;
 
-	if( !strcmp( "asn1dn", text ) )
+	if( !strcmp( "asn1dn", text ))
 		peer.idtype_r = ISAKMP_ID_ASN1_DN;
 
-	if( !strcmp( "keyid", text ) )
+	if( !strcmp( "keyid", text ))
 		peer.idtype_r = ISAKMP_ID_KEY_ID;
 
-	if( !strcmp( "fqdn", text ) )
+	if( !strcmp( "fqdn", text ))
 		peer.idtype_r = ISAKMP_ID_FQDN;
 
-	if( !strcmp( "ufqdn", text ) )
+	if( !strcmp( "ufqdn", text ))
 		peer.idtype_r = ISAKMP_ID_USER_FQDN;
 
-	if( !strcmp( "address", text ) )
+	if( !strcmp( "address", text ))
 		peer.idtype_r = ISAKMP_ID_IPV4_ADDR;
 
 	if( peer.idtype_r == 255 )
@@ -292,16 +292,16 @@ bool _CLIENT::run_init()
 
 	// phase1 exchange mode
 
-	if( !config.get_string( "phase1-exchange", text, MAX_CONFSTRING, 0 ) )
+	if( !config.get_string( "phase1-exchange", text, MAX_CONFSTRING, 0 ))
 	{
 		log( STATUS_FAIL, "config error : phase1-exchange undefined\n" );
 		return false;
 	}
 
-	if( !strcmp( "main", text ) )
+	if( !strcmp( "main", text ))
 		peer.exchange = ISAKMP_EXCH_IDENT_PROTECT;
 
-	if( !strcmp( "aggressive", text ) )
+	if( !strcmp( "aggressive", text ))
 		peer.exchange = ISAKMP_EXCH_AGGRESSIVE;
 
 	if( !peer.exchange )
@@ -310,7 +310,7 @@ bool _CLIENT::run_init()
 		return false;
 	}
 
-	memset( &proposal_isakmp, 0, sizeof( proposal_isakmp ) );
+	memset( &proposal_isakmp, 0, sizeof( proposal_isakmp ));
 
 	// defaults
 
@@ -319,36 +319,36 @@ bool _CLIENT::run_init()
 
 	// phase1 cipher type
 
-	if( !config.get_string( "phase1-cipher", text, MAX_CONFSTRING, 0 ) )
+	if( !config.get_string( "phase1-cipher", text, MAX_CONFSTRING, 0 ))
 	{
 		log( STATUS_FAIL, "config error : phase1-cipher undefined\n" );
 		return false;
 	}
 
-	if( !strcmp( "auto", text ) )
+	if( !strcmp( "auto", text ))
 		proposal_isakmp.ciph_id = 0;
 
-	if( !strcmp( "aes", text ) )
+	if( !strcmp( "aes", text ))
 		proposal_isakmp.ciph_id = IKE_CIPHER_AES;
 
-	if( !strcmp( "blowfish", text ) )
+	if( !strcmp( "blowfish", text ))
 		proposal_isakmp.ciph_id = IKE_CIPHER_BLOWFISH;
 
-	if( !strcmp( "3des", text ) )
+	if( !strcmp( "3des", text ))
 		proposal_isakmp.ciph_id = IKE_CIPHER_3DES;
 
-	if( !strcmp( "cast", text ) )
+	if( !strcmp( "cast", text ))
 		proposal_isakmp.ciph_id = IKE_CIPHER_CAST;
 
-	if( !strcmp( "des", text ) )
+	if( !strcmp( "des", text ))
 		proposal_isakmp.ciph_id = IKE_CIPHER_DES;
 
 	// phase1 cipher keylength
 
 	if( ( proposal_isakmp.ciph_id == IKE_CIPHER_AES ) ||
-		( proposal_isakmp.ciph_id == IKE_CIPHER_BLOWFISH ) )
+		( proposal_isakmp.ciph_id == IKE_CIPHER_BLOWFISH ))
 	{
-		if( !config.get_number( "phase1-keylen", &numb ) )
+		if( !config.get_number( "phase1-keylen", &numb ))
 		{
 			log( STATUS_FAIL, "config error : phase1-keylen undefined\n" );
 			return false;
@@ -359,33 +359,33 @@ bool _CLIENT::run_init()
 	
 	// phase1 hash type
 
-	if( !config.get_string( "phase1-hash", text, MAX_CONFSTRING, 0 ) )
+	if( !config.get_string( "phase1-hash", text, MAX_CONFSTRING, 0 ))
 	{
 		log( STATUS_FAIL, "config error : phase1-hash undefined\n" );
 		return false;
 	}
 
-	if( !strcmp( "auto", text ) )
+	if( !strcmp( "auto", text ))
 		proposal_isakmp.hash_id = 0;
 
-	if( !strcmp( "md5", text ) )
+	if( !strcmp( "md5", text ))
 		proposal_isakmp.hash_id = IKE_HASH_MD5;
 
-	if( !strcmp( "sha1", text ) )
+	if( !strcmp( "sha1", text ))
 		proposal_isakmp.hash_id = IKE_HASH_SHA1;
 
-	if( !strcmp( "sha2-256", text ) )
+	if( !strcmp( "sha2-256", text ))
 		proposal_isakmp.hash_id = IKE_HASH_SHA2_256;
 
-	if( !strcmp( "sha2-384", text ) )
+	if( !strcmp( "sha2-384", text ))
 		proposal_isakmp.hash_id = IKE_HASH_SHA2_384;
 
-	if( !strcmp( "sha2-512", text ) )
+	if( !strcmp( "sha2-512", text ))
 		proposal_isakmp.hash_id = IKE_HASH_SHA2_512;
 
 	// phase1 dh group description
 
-	if( !config.get_number( "phase1-dhgroup", &numb ) )
+	if( !config.get_number( "phase1-dhgroup", &numb ))
 	{
 		log( STATUS_FAIL, "config error : phase1-dhgroup undefined\n" );
 		return false;
@@ -395,46 +395,46 @@ bool _CLIENT::run_init()
 
 	// phase1 authentication mode
 
-	if( !config.get_string( "auth-method", text, MAX_CONFSTRING, 0 ) )
+	if( !config.get_string( "auth-method", text, MAX_CONFSTRING, 0 ))
 	{
 		log( STATUS_FAIL, "config error : auth-method undefined\n" );
 		return false;
 	}
 
-	if( !strcmp( "hybrid-rsa-xauth", text ) )
+	if( !strcmp( "hybrid-rsa-xauth", text ))
 		proposal_isakmp.auth_id = HYBRID_AUTH_INIT_RSA;
 
-	if( !strcmp( "hybrid-grp-xauth", text ) )
+	if( !strcmp( "hybrid-grp-xauth", text ))
 	{
 		proposal_isakmp.auth_id = HYBRID_AUTH_INIT_RSA;
 		xconf.opts |= IPSEC_OPTS_CISCO_GRP;
 	}
 
-	if( !strcmp( "mutual-rsa-xauth", text ) )
+	if( !strcmp( "mutual-rsa-xauth", text ))
 		proposal_isakmp.auth_id = XAUTH_AUTH_INIT_RSA;
 
-	if( !strcmp( "mutual-psk-xauth", text ) )
+	if( !strcmp( "mutual-psk-xauth", text ))
 		proposal_isakmp.auth_id = XAUTH_AUTH_INIT_PSK;
 
-	if( !strcmp( "mutual-rsa", text ) )
+	if( !strcmp( "mutual-rsa", text ))
 		proposal_isakmp.auth_id = IKE_AUTH_SIG_RSA;
 
-	if( !strcmp( "mutual-psk", text ) )
+	if( !strcmp( "mutual-psk", text ))
 		proposal_isakmp.auth_id = IKE_AUTH_PRESHARED_KEY;
 
 	// phase1 lifetime
 
-	if( config.get_number( "phase1-life-secs", &numb ) )
+	if( config.get_number( "phase1-life-secs", &numb ))
 		proposal_isakmp.life_sec	= numb;
 
-	if( config.get_number( "phase1-life-kbytes", &numb ) )
+	if( config.get_number( "phase1-life-kbytes", &numb ))
 		proposal_isakmp.life_kbs	= numb;
 
 	//
 	// ---------- ESP PROPOSAL ----------
 	//
 
-	memset( &proposal_esp, 0, sizeof( proposal_esp ) );
+	memset( &proposal_esp, 0, sizeof( proposal_esp ));
 
 	// defaults
 
@@ -443,36 +443,36 @@ bool _CLIENT::run_init()
 
 	// phase2 transform type
 
-	if( !config.get_string( "phase2-transform", text, MAX_CONFSTRING, 0 ) )
+	if( !config.get_string( "phase2-transform", text, MAX_CONFSTRING, 0 ))
 	{
 		log( STATUS_FAIL, "config error : phase2-transform undefined\n" );
 		return false;
 	}
 
-	if( !strcmp( "auto", text ) )
+	if( !strcmp( "auto", text ))
 		proposal_esp.xform = 0;
 
-	if( !strcmp( "esp-aes", text ) )
+	if( !strcmp( "esp-aes", text ))
 		proposal_esp.xform = ISAKMP_ESP_AES;
 
-	if( !strcmp( "esp-blowfish", text ) )
+	if( !strcmp( "esp-blowfish", text ))
 		proposal_esp.xform = ISAKMP_ESP_BLOWFISH;
 
-	if( !strcmp( "esp-3des", text ) )
+	if( !strcmp( "esp-3des", text ))
 		proposal_esp.xform = ISAKMP_ESP_3DES;
 
-	if( !strcmp( "esp-cast", text ) )
+	if( !strcmp( "esp-cast", text ))
 		proposal_esp.xform = ISAKMP_ESP_CAST;
 
-	if( !strcmp( "esp-des", text ) )
+	if( !strcmp( "esp-des", text ))
 		proposal_esp.xform = ISAKMP_ESP_DES;
 
 	// phase2 transform keylength
 
 	if( ( proposal_esp.xform == ISAKMP_ESP_AES ) ||
-		( proposal_esp.xform == ISAKMP_ESP_BLOWFISH ) )
+		( proposal_esp.xform == ISAKMP_ESP_BLOWFISH ))
 	{
-		if( !config.get_number( "phase2-keylen", &numb ) )
+		if( !config.get_number( "phase2-keylen", &numb ))
 		{
 			log( STATUS_FAIL, "config error : phase2-keylen undefined\n" );
 			return false;
@@ -483,35 +483,35 @@ bool _CLIENT::run_init()
 
 	// phase2 hmac type
 
-	if( !config.get_string( "phase2-hmac", text, MAX_CONFSTRING, 0 ) )
+	if( !config.get_string( "phase2-hmac", text, MAX_CONFSTRING, 0 ))
 	{
 		log( STATUS_FAIL, "config error : phase2-hmac undefined\n" );
 		return false;
 	}
 
-	if( !strcmp( "auto", text ) )
+	if( !strcmp( "auto", text ))
 		proposal_esp.hash_id = 0;
 
-	if( !strcmp( "md5", text ) )
+	if( !strcmp( "md5", text ))
 		proposal_esp.hash_id = ISAKMP_AUTH_HMAC_MD5;
 
-	if( !strcmp( "sha1", text ) )
+	if( !strcmp( "sha1", text ))
 		proposal_esp.hash_id = ISAKMP_AUTH_HMAC_SHA1;
 
-	if( !strcmp( "sha2-256", text ) )
+	if( !strcmp( "sha2-256", text ))
 		proposal_esp.hash_id = ISAKMP_AUTH_HMAC_SHA2_256;
 
-	if( !strcmp( "sha2-384", text ) )
+	if( !strcmp( "sha2-384", text ))
 		proposal_esp.hash_id = ISAKMP_AUTH_HMAC_SHA2_384;
 
-	if( !strcmp( "sha2-512", text ) )
+	if( !strcmp( "sha2-512", text ))
 		proposal_esp.hash_id = ISAKMP_AUTH_HMAC_SHA2_512;
 
 	// phase2 pfs group description
 
 	proposal_esp.dhgr_id = 0;
 
-	if( config.get_number( "phase2-pfsgroup", &numb ) )
+	if( config.get_number( "phase2-pfsgroup", &numb ))
 	{
 		if( !numb )
 			xconf.rqst |= IPSEC_OPTS_PFS;
@@ -523,23 +523,23 @@ bool _CLIENT::run_init()
 			( numb == IKE_GRP_GROUP15 ) ||
 			( numb == IKE_GRP_GROUP16 ) ||
 			( numb == IKE_GRP_GROUP17 ) ||
-			( numb == IKE_GRP_GROUP18 ) )
+			( numb == IKE_GRP_GROUP18 ))
 			proposal_esp.dhgr_id = ( unsigned short ) numb;
 	}
 
 	// phase2 lifetimes
 
-	if( config.get_number( "phase2-life-secs", &numb ) )
+	if( config.get_number( "phase2-life-secs", &numb ))
 		proposal_esp.life_sec = numb;
 
-	if( config.get_number( "phase2-life-kbytes", &numb ) )
+	if( config.get_number( "phase2-life-kbytes", &numb ))
 		proposal_esp.life_kbs = numb;
 
 	//
 	// ---------- IPCOMP PROPOSAL ----------
 	//
 
-	memset( &proposal_ipcomp, 0, sizeof( proposal_ipcomp ) );
+	memset( &proposal_ipcomp, 0, sizeof( proposal_ipcomp ));
 
 	// defaults
 
@@ -548,25 +548,25 @@ bool _CLIENT::run_init()
 
 	// ipcomp transform type
 
-	if( !config.get_string( "ipcomp-transform", text, MAX_CONFSTRING, 0 ) )
+	if( !config.get_string( "ipcomp-transform", text, MAX_CONFSTRING, 0 ))
 	{
 		log( STATUS_FAIL, "config error : ipcomp-transform undefined\n" );
 		return false;
 	}
 
-	if( !strcmp( "none", text ) )
+	if( !strcmp( "none", text ))
 		proposal_ipcomp.xform = ISAKMP_IPCOMP_NONE;
 
-	if( !strcmp( "deflate", text ) )
+	if( !strcmp( "deflate", text ))
 		proposal_ipcomp.xform = ISAKMP_IPCOMP_DEFLATE;
 
-	if( !strcmp( "lzs", text ) )
+	if( !strcmp( "lzs", text ))
 		proposal_ipcomp.xform = ISAKMP_IPCOMP_LZS;
 
-	if( config.get_number( "phase2-life-secs", &numb ) )
+	if( config.get_number( "phase2-life-secs", &numb ))
 		proposal_ipcomp.life_sec = numb;
 
-	if( config.get_number( "phase2-life-kbytes", &numb ) )
+	if( config.get_number( "phase2-life-kbytes", &numb ))
 		proposal_ipcomp.life_kbs = numb;
 
 	//
@@ -577,26 +577,26 @@ bool _CLIENT::run_init()
 
 	if( ( proposal_isakmp.auth_id == XAUTH_AUTH_INIT_PSK ) ||
 	    ( proposal_isakmp.auth_id == XAUTH_AUTH_INIT_RSA ) ||
-	    ( proposal_isakmp.auth_id == HYBRID_AUTH_INIT_RSA ) )
+	    ( proposal_isakmp.auth_id == HYBRID_AUTH_INIT_RSA ))
 		if( ( peer.xconf_mode == CONFIG_MODE_PULL ) ||
-		    ( peer.xconf_mode == CONFIG_MODE_PUSH ) )
+		    ( peer.xconf_mode == CONFIG_MODE_PUSH ))
 			xconf.rqst |= IPSEC_OPTS_SAVEPW;
 
 	// network interface type
 
-	if( !config.get_string( "client-iface", text, MAX_CONFSTRING, 0 ) )
+	if( !config.get_string( "client-iface", text, MAX_CONFSTRING, 0 ))
 	{
 		log( STATUS_FAIL, "config error : client-iface undefined\n" );
 		return false;
 	}
 
-	if( !strcmp( "virtual", text ) || !strcmp( "random", text ) )
+	if( !strcmp( "virtual", text ) || !strcmp( "random", text ))
 	{
 		xconf.opts |= ( IPSEC_OPTS_ADDR | IPSEC_OPTS_MASK );
 
 		// virtual adapter with assgined address
 
-		if( !strcmp( "virtual", text ) )
+		if( !strcmp( "virtual", text ))
 		{
 			numb = 1;
 			config.get_number( "client-addr-auto", &numb );
@@ -611,7 +611,7 @@ bool _CLIENT::run_init()
 			{
 				// static address configuration
 
-				if( !config.get_string( "client-ip-addr", text, MAX_CONFSTRING, 0 ) )
+				if( !config.get_string( "client-ip-addr", text, MAX_CONFSTRING, 0 ))
 				{
 					log( STATUS_FAIL, "config error : client-ip-addr undefined\n" );
 					return false;
@@ -619,7 +619,7 @@ bool _CLIENT::run_init()
 
 				xconf.addr.s_addr = inet_addr( text );
 
-				if( !config.get_string( "client-ip-mask", text, MAX_CONFSTRING, 0 ) )
+				if( !config.get_string( "client-ip-mask", text, MAX_CONFSTRING, 0 ))
 				{
 					log( STATUS_FAIL, "config error : client-ip-mask undefined\n" );
 					return false;
@@ -631,11 +631,11 @@ bool _CLIENT::run_init()
 
 		// virtual adapter with randomized address
 
-		if( !strcmp( "random", text ) )
+		if( !strcmp( "random", text ))
 		{
 			// random address configuration
 
-			if( !config.get_string( "client-ip-addr", text, MAX_CONFSTRING, 0 ) )
+			if( !config.get_string( "client-ip-addr", text, MAX_CONFSTRING, 0 ))
 			{
 				log( STATUS_FAIL, "config error : client-ip-addr undefined\n" );
 				return false;
@@ -643,7 +643,7 @@ bool _CLIENT::run_init()
 
 			xconf.addr.s_addr = inet_addr( text );
 
-			if( !config.get_string( "client-ip-mask", text, MAX_CONFSTRING, 0 ) )
+			if( !config.get_string( "client-ip-mask", text, MAX_CONFSTRING, 0 ))
 			{
 				log( STATUS_FAIL, "config error : client-ip-mask undefined\n" );
 				return false;
@@ -661,13 +661,13 @@ bool _CLIENT::run_init()
 		// adapter mtu
 
 		xconf.vmtu = 1500;
-		if( config.get_number( "network-mtu-size", &numb ) )
+		if( config.get_number( "network-mtu-size", &numb ))
 			xconf.vmtu = numb;
 	}
 
 	// enable wins options
 
-	if( config.get_number( "client-wins-used", &numb ) )
+	if( config.get_number( "client-wins-used", &numb ))
 	{
 		if( numb )
 		{
@@ -688,7 +688,7 @@ bool _CLIENT::run_init()
 
 				for( long index = 0; index < IPSEC_NBNS_MAX; index++ )
 				{
-					if( !config.get_string( "client-wins-addr", text, MAX_CONFSTRING, index ) )
+					if( !config.get_string( "client-wins-addr", text, MAX_CONFSTRING, index ))
 						break;
 
 					xconf.nscfg.nbns_list[ index ].s_addr = inet_addr( text );
@@ -708,7 +708,7 @@ bool _CLIENT::run_init()
 
 	// enable dns options
 
-	if( config.get_number( "client-dns-used", &numb ) )
+	if( config.get_number( "client-dns-used", &numb ))
 	{
 		if( numb )
 		{
@@ -727,7 +727,7 @@ bool _CLIENT::run_init()
 
 				for( long index = 0; index < IPSEC_DNSS_MAX; index++ )
 				{
-					if( !config.get_string( "client-dns-addr", text, MAX_CONFSTRING, index ) )
+					if( !config.get_string( "client-dns-addr", text, MAX_CONFSTRING, index ))
 						break;
 
 					xconf.nscfg.dnss_list[ index ].s_addr = inet_addr( text );
@@ -756,7 +756,7 @@ bool _CLIENT::run_init()
 			{
 				// static domain configuration
 
-				if( config.get_string( "client-dns-suffix", text, MAX_CONFSTRING, 0 ) )
+				if( config.get_string( "client-dns-suffix", text, MAX_CONFSTRING, 0 ))
 				{
 					strncpy_s( xconf.nscfg.dnss_suffix, text, CONF_STRLEN );
 
@@ -770,18 +770,18 @@ bool _CLIENT::run_init()
 
 	peer.plcy_level = POLICY_LEVEL_AUTO;
 
-	if( config.get_string( "policy-level", text, MAX_CONFSTRING, 0 ) )
+	if( config.get_string( "policy-level", text, MAX_CONFSTRING, 0 ))
 	{
-		if( !strcmp( "use", text ) )
+		if( !strcmp( "use", text ))
 			peer.plcy_level = POLICY_LEVEL_USE;
 
-		if( !strcmp( "require", text ) )
+		if( !strcmp( "require", text ))
 			peer.plcy_level = POLICY_LEVEL_REQUIRE;
 
-		if( !strcmp( "unique", text ) )
+		if( !strcmp( "unique", text ))
 			peer.plcy_level = POLICY_LEVEL_UNIQUE;
 
-		if( !strcmp( "shared", text ) )
+		if( !strcmp( "shared", text ))
 			peer.plcy_level = POLICY_LEVEL_SHARED;
 	}
 
@@ -841,7 +841,7 @@ bool _CLIENT::run_init()
 	msg.set_peer( &peer );
 	result = ikei.send_message( msg, &msgres );
 
-	if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ) )
+	if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ))
 	{
 		log( STATUS_FAIL, "peer config failed\n" );
 		goto config_failed;
@@ -856,7 +856,7 @@ bool _CLIENT::run_init()
 	msg.set_proposal( &proposal_isakmp );
 	result = ikei.send_message( msg, &msgres );
 
-	if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ) )
+	if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ))
 	{
 		log( STATUS_FAIL, "isakmp proposal config failed\n" );
 		goto config_failed;
@@ -867,7 +867,7 @@ bool _CLIENT::run_init()
 	msg.set_proposal( &proposal_esp );
 	result = ikei.send_message( msg, &msgres );
 
-	if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ) )
+	if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ))
 	{
 		log( STATUS_FAIL, "esp proposal config failed\n" );
 		goto config_failed;
@@ -880,7 +880,7 @@ bool _CLIENT::run_init()
 		msg.set_proposal( &proposal_ipcomp );
 		result = ikei.send_message( msg, &msgres );
 
-		if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ) )
+		if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ))
 		{
 			log( STATUS_FAIL, "ipcomp proposal config failed\n" );
 			goto config_failed;
@@ -896,7 +896,7 @@ bool _CLIENT::run_init()
 	msg.set_client( &xconf );
 	result = ikei.send_message( msg, &msgres );
 
-	if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ) )
+	if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ))
 	{
 		log( STATUS_FAIL, "client config failed\n" );
 		goto config_failed;
@@ -910,14 +910,14 @@ bool _CLIENT::run_init()
 
 	if( ( proposal_isakmp.auth_id == XAUTH_AUTH_INIT_PSK ) ||
 		( proposal_isakmp.auth_id == XAUTH_AUTH_INIT_RSA ) ||
-		( proposal_isakmp.auth_id == HYBRID_AUTH_INIT_RSA ) )
+		( proposal_isakmp.auth_id == HYBRID_AUTH_INIT_RSA ))
 	{
 		get_username();
 
 		msg.set_cfgstr( CFGSTR_CRED_XAUTH_USER, &username );
 		result = ikei.send_message( msg, &msgres );
 
-		if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ) )
+		if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ))
 		{
 			log( STATUS_FAIL, "xauth username config failed\n" );
 			goto config_failed;
@@ -928,7 +928,7 @@ bool _CLIENT::run_init()
 		msg.set_cfgstr( CFGSTR_CRED_XAUTH_PASS, &password );
 		result = ikei.send_message( msg, &msgres );
 
-		if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ) )
+		if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ))
 		{
 			log( STATUS_FAIL, "xauth password config failed\n" );
 			goto config_failed;
@@ -941,12 +941,12 @@ bool _CLIENT::run_init()
 
 	// client id data
 
-	if( config.get_string( "ident-client-data", btext, 0 ) )
+	if( config.get_string( "ident-client-data", btext, 0 ))
 	{
 		msg.set_cfgstr( CFGSTR_CRED_LID, &btext );
 		result = ikei.send_message( msg, &msgres );
 
-		if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ) )
+		if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ))
 		{
 			log( STATUS_FAIL, "local id config failed\n" );
 			goto config_failed;
@@ -957,12 +957,12 @@ bool _CLIENT::run_init()
 
 	// server id data
 
-	if( config.get_string( "ident-server-data", btext, 0 ) )
+	if( config.get_string( "ident-server-data", btext, 0 ))
 	{
 		msg.set_cfgstr( CFGSTR_CRED_RID, &btext );
 		result = ikei.send_message( msg, &msgres );
 
-		if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ) )
+		if( ( result != IPCERR_OK ) || ( msgres != IKEI_RESULT_OK ))
 		{
 			log( STATUS_FAIL, "remote id config failed\n" );
 			goto config_failed;
@@ -977,19 +977,19 @@ bool _CLIENT::run_init()
 
 	if( ( proposal_isakmp.auth_id == HYBRID_AUTH_INIT_RSA ) ||
 		( proposal_isakmp.auth_id == XAUTH_AUTH_INIT_RSA ) ||
-		( proposal_isakmp.auth_id == IKE_AUTH_SIG_RSA ) )
+		( proposal_isakmp.auth_id == IKE_AUTH_SIG_RSA ))
 	{
 		BDATA name;
 
 		// server certificate
 
-		if( !config.get_string( "auth-server-cert-name", name, 0 ) )
+		if( !config.get_string( "auth-server-cert-name", name, 0 ))
 		{
 			log( STATUS_FAIL, "config error : auth-server-cert-name undefined\n" );
 			goto config_failed;
 		}
 
-		if( !config.get_binary( "auth-server-cert-data", btext ) )
+		if( !config.get_binary( "auth-server-cert-data", btext ))
 		{
 			log( STATUS_FAIL, "config error : auth-server-cert-data undefined\n" );
 			goto config_failed;
@@ -1000,7 +1000,7 @@ bool _CLIENT::run_init()
 		msg.set_cfgstr( CFGSTR_CRED_RSA_RCRT, &btext );
 		result = ikei.send_message( msg, &msgres );
 
-		if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ) )
+		if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ))
 		{
 			log( STATUS_FAIL, "server cert config failed\n" );
 			goto config_failed;
@@ -1008,7 +1008,7 @@ bool _CLIENT::run_init()
 
 		if( msgres == IKEI_RESULT_PASSWD )
 		{
-			if( !get_filepass( name ) )
+			if( !get_filepass( name ))
 			{
 				log( STATUS_FAIL, "server cert file requires password\n" );
 				goto config_failed;
@@ -1024,19 +1024,19 @@ bool _CLIENT::run_init()
 	}
 
 	if( ( proposal_isakmp.auth_id == XAUTH_AUTH_INIT_RSA ) ||
-		( proposal_isakmp.auth_id == IKE_AUTH_SIG_RSA ) )
+		( proposal_isakmp.auth_id == IKE_AUTH_SIG_RSA ))
 	{
 		BDATA name;
 
 		// client certificate
 
-		if( !config.get_string( "auth-client-cert-name", name, 0 ) )
+		if( !config.get_string( "auth-client-cert-name", name, 0 ))
 		{
 			log( STATUS_FAIL, "config error : auth-client-cert-name undefined\n" );
 			goto config_failed;
 		}
 
-		if( !config.get_binary( "auth-client-cert-data", btext ) )
+		if( !config.get_binary( "auth-client-cert-data", btext ))
 		{
 			log( STATUS_FAIL, "config error : auth-client-cert-data undefined\n" );
 			goto config_failed;
@@ -1047,7 +1047,7 @@ bool _CLIENT::run_init()
 		msg.set_cfgstr( CFGSTR_CRED_RSA_LCRT, &btext );
 		result = ikei.send_message( msg, &msgres );
 
-		if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ) )
+		if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ))
 		{
 			log( STATUS_FAIL, "client cert config failed\n" );
 			goto config_failed;
@@ -1055,7 +1055,7 @@ bool _CLIENT::run_init()
 
 		if( msgres == IKEI_RESULT_PASSWD )
 		{
-			if( !get_filepass( name ) )
+			if( !get_filepass( name ))
 			{
 				log( STATUS_FAIL, "client cert file requires password\n" );
 				goto config_failed;
@@ -1071,13 +1071,13 @@ bool _CLIENT::run_init()
 
 		// client private key
 
-		if( !config.get_string( "auth-client-cert-name", name, 0 ) )
+		if( !config.get_string( "auth-client-cert-name", name, 0 ))
 		{
 			log( STATUS_FAIL, "config error : auth-client-cert-name undefined\n" );
 			goto config_failed;
 		}
 
-		if( !config.get_binary( "auth-client-key-data", btext ) )
+		if( !config.get_binary( "auth-client-key-data", btext ))
 		{
 			log( STATUS_FAIL, "config error : auth-client-key-data undefined\n" );
 			goto config_failed;
@@ -1088,7 +1088,7 @@ bool _CLIENT::run_init()
 		msg.set_cfgstr( CFGSTR_CRED_RSA_LKEY, &btext );
 		result = ikei.send_message( msg, &msgres );
 
-		if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ) )
+		if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ))
 		{
 			log( STATUS_FAIL, "client key config failed\n" );
 			goto config_failed;
@@ -1096,7 +1096,7 @@ bool _CLIENT::run_init()
 
 		if( msgres == IKEI_RESULT_PASSWD )
 		{
-			if( !get_filepass( name ) )
+			if( !get_filepass( name ))
 			{
 				log( STATUS_FAIL, "client key file requires password\n" );
 				goto config_failed;
@@ -1113,13 +1113,13 @@ bool _CLIENT::run_init()
 
 	if( ( proposal_isakmp.auth_id == XAUTH_AUTH_INIT_PSK ) ||
 		( proposal_isakmp.auth_id == IKE_AUTH_PRESHARED_KEY ) ||
-		( xconf.opts & IPSEC_OPTS_CISCO_GRP ) )
+		( xconf.opts & IPSEC_OPTS_CISCO_GRP ))
 	{
 		// mutual preshared key
 
 		BDATA psk;
 
-		if( !config.get_binary( "auth-mutual-psk", psk ) )
+		if( !config.get_binary( "auth-mutual-psk", psk ))
 		{
 			log( STATUS_FAIL, "config error : auth-mutual-psk undefined\n" );
 			goto config_failed;
@@ -1128,7 +1128,7 @@ bool _CLIENT::run_init()
 		msg.set_cfgstr( CFGSTR_CRED_PSK, &psk );
 		result = ikei.send_message( msg, &msgres );
 
-		if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ) )
+		if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ))
 		{
 			log( STATUS_FAIL, "pre-shared key config failed\n" );
 			goto config_failed;
@@ -1142,15 +1142,15 @@ bool _CLIENT::run_init()
 	//
 
 	if(  ( xconf.opts & IPSEC_OPTS_SPLITDNS ) &&
-		!( xconf.rqst & IPSEC_OPTS_SPLITDNS ) )
+		!( xconf.rqst & IPSEC_OPTS_SPLITDNS ))
 	{
 		long index = 0;
-		while( config.get_string( "client-splitdns-list", btext, index++ ) )
+		while( config.get_string( "client-splitdns-list", btext, index++ ))
 		{
 			msg.set_cfgstr( CFGSTR_SPLIT_DOMAIN, &btext );
 			result = ikei.send_message( msg, &msgres );
 
-			if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ) )
+			if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ))
 			{
 				log( STATUS_FAIL, "split domain name config failed\n" );
 				goto config_failed;
@@ -1162,18 +1162,18 @@ bool _CLIENT::run_init()
 	// define our manual remote id list
 	//
 
-	if( !( xconf.rqst & IPSEC_OPTS_SPLITNET ) )
+	if( !( xconf.rqst & IPSEC_OPTS_SPLITNET ))
 	{
 		long index = 0;
 
-		while( config.get_string( "policy-list-exclude", text, MAX_CONFSTRING, index ) )
+		while( config.get_string( "policy-list-exclude", text, MAX_CONFSTRING, index ))
 		{
 			char * split = strchr( text, '/' ) + 2;
 			unsigned long addr = inet_addr( text );
 			unsigned long mask = inet_addr( split );
 
 			IKE_PH2ID ph2id;
-			memset( &ph2id, 0, sizeof( ph2id ) );
+			memset( &ph2id, 0, sizeof( ph2id ));
 
 			ph2id.type = ISAKMP_ID_IPV4_ADDR_SUBNET;
 			ph2id.addr1.s_addr = addr;
@@ -1182,7 +1182,7 @@ bool _CLIENT::run_init()
 			msg.set_network( UNITY_SPLIT_EXCLUDE, &ph2id );
 			result = ikei.send_message( msg, &msgres );
 
-			if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ) )
+			if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ))
 			{
 				log( STATUS_FAIL, "policy include config failed\n" );
 				goto config_failed;
@@ -1193,14 +1193,14 @@ bool _CLIENT::run_init()
 
 		index = 0;
 
-		while( config.get_string( "policy-list-include", text, MAX_CONFSTRING, index ) )
+		while( config.get_string( "policy-list-include", text, MAX_CONFSTRING, index ))
 		{
 			char * split = strchr( text, '/' ) + 2;
 			unsigned long addr = inet_addr( text );
 			unsigned long mask = inet_addr( split );
 
 			IKE_PH2ID ph2id;
-			memset( &ph2id, 0, sizeof( ph2id ) );
+			memset( &ph2id, 0, sizeof( ph2id ));
 
 			ph2id.type = ISAKMP_ID_IPV4_ADDR_SUBNET;
 			ph2id.addr1.s_addr = addr;
@@ -1209,7 +1209,7 @@ bool _CLIENT::run_init()
 			msg.set_network( UNITY_SPLIT_INCLUDE, &ph2id );
 			result = ikei.send_message( msg, &msgres );
 
-			if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ) )
+			if( ( result != IPCERR_OK ) || ( msgres == IKEI_RESULT_FAILED ))
 			{
 				log( STATUS_FAIL, "policy include config failed\n" );
 				goto config_failed;
@@ -1247,6 +1247,13 @@ bool _CLIENT::run_init()
 	return false;
 }
 
+
+
+
+
+
+
+
 bool _CLIENT::run_loop()
 {
 	IKEI_MSG msg;
@@ -1270,7 +1277,7 @@ bool _CLIENT::run_loop()
 		if( result == IPCERR_NODATA )
 			continue;
 
-		if( ( result == IPCERR_FAILED ) || ( result == IPCERR_CLOSED ) )
+		if(( result == IPCERR_FAILED ) || ( result == IPCERR_CLOSED ))
 		{
 			if( cstate != CLIENT_STATE_DISCONNECTED )
 			{
@@ -1278,7 +1285,6 @@ bool _CLIENT::run_loop()
 				cstate = CLIENT_STATE_DISCONNECTED;
 				set_status( STATUS_DISCONNECTED, NULL );
 			}
-
 			break;
 		}
 
@@ -1327,10 +1333,13 @@ bool _CLIENT::run_loop()
 					case STATUS_DISCONNECTING:
 						cstate = CLIENT_STATE_DISCONNECTING;
 						break;
+
+					case STATUS_FAIL:
+						generic_fail_flag = true;
+						break;
 				}
 
 				set_status( status, &btext );
-
 				break;
 			}
 
@@ -1344,7 +1353,6 @@ bool _CLIENT::run_loop()
 					break;
 
 				set_stats();
-
 				break;
 			}
 		}
@@ -1358,22 +1366,33 @@ bool _CLIENT::run_loop()
 }
 
 
+
+
+
+
+
 long _CLIENT::func( void * arg )
 {
 	if( arg == ( void * ) 1 )
-		if( !run_init() )
+		if( !run_init())
 			return -1;
 
-	if( !run_loop() )
+	if( !run_loop())
 		return -1;
 
 	return 0;
 }
 
+
+
+
+
+
+
+
 _CLIENT::_CLIENT()
 {
-	memset( &stats, 0, sizeof( stats ) );
-
+	memset( &stats, 0, sizeof( stats ));
 	cstate = CLIENT_STATE_DISCONNECTED;
 	autoconnect = false;
 	suspended = false;
@@ -1400,7 +1419,7 @@ OPT_RESULT _CLIENT::read_opts( int argc, char ** argv )
 	{
 		// remote site name
 
-		if( !strcmp( argv[ argi ], "-r" ) )
+		if( !strcmp( argv[ argi ], "-r" ))
 		{
 			if( ++argi >= argc )
 				return OPT_RESULT_SYNTAX_ERROR;
@@ -1413,7 +1432,7 @@ OPT_RESULT _CLIENT::read_opts( int argc, char ** argv )
 
 #ifdef WIN32
 
-		if( !strcmp( argv[ argi ], "-s" ) )
+		if( !strcmp( argv[ argi ], "-s" ))
 		{
 			// this takes a few trys some times,
 			// i have no idea why. we wait up to
@@ -1436,7 +1455,7 @@ OPT_RESULT _CLIENT::read_opts( int argc, char ** argv )
 						temp_path ) == S_OK )
 				{
 					sprintf_s( file_path, "%s\\Shrew Soft VPN\\sscp-login-info", temp_path );
-					if( site_name.file_load( file_path ) )
+					if( site_name.file_load( file_path ))
 					{
 						site_name.add( "", 1 );
 						DeleteFile( file_path );
@@ -1457,33 +1476,33 @@ OPT_RESULT _CLIENT::read_opts( int argc, char ** argv )
 
 		// remote site username
 
-		if( !strcmp( argv[ argi ], "-u" ) )
+		if( !strcmp( argv[ argi ], "-u" ))
 		{
 			if( ++argi >= argc )
 				return OPT_RESULT_SYNTAX_ERROR;
 
 			username.set(
-				argv[ argi ], strlen( argv[ argi ] ) );
+				argv[ argi ], strlen( argv[ argi ] ));
 
 			continue;
 		}
 
 		// remote site password
 
-		if( !strcmp( argv[ argi ], "-p" ) )
+		if( !strcmp( argv[ argi ], "-p" ))
 		{
 			if( ++argi >= argc )
 				return OPT_RESULT_SYNTAX_ERROR;
 
 			password.set(
-				argv[ argi ], strlen( argv[ argi ] ) );
+				argv[ argi ], strlen( argv[ argi ] ));
 
 			continue;
 		}
 
 		// auto connect
 
-		if( !strcmp( argv[ argi ], "-a" ) )
+		if( !strcmp( argv[ argi ], "-a" ))
 		{
 			autoconnect = true;
 			continue;
@@ -1496,7 +1515,7 @@ OPT_RESULT _CLIENT::read_opts( int argc, char ** argv )
 
 	// make sure we have a site name
 
-	if( !site_name.size() )
+	if( !site_name.size())
 		return OPT_RESULT_SYNTAX_ERROR;
 
 	return OPT_RESULT_SUCCESS;
@@ -1513,15 +1532,15 @@ void _CLIENT::show_help()
 		" -u\tconnection user name\n"
 		" -p\tconnection user password\n"
 		" -a\tauto connect\n",
-		app_name() );
+		app_name());
 }
 
 bool _CLIENT::config_load()
 {
-	if( !site_name.size() )
+	if( !site_name.size())
 		return false;
 	
-	config.set_id( site_name.text() );
+	config.set_id( site_name.text());
 
 	bool loaded = manager.file_vpn_load( config );
 
@@ -1538,13 +1557,13 @@ bool _CLIENT::config_load()
 	if( !loaded )
 	{
 		log( STATUS_FAIL, "failed to load \'%s\'\n",
-			site_name.text() );
+			site_name.text());
 
 		return false;
 	}
 
 	log( STATUS_INFO, "config loaded for site \'%s\'\n",
-		site_name.text() );
+		site_name.text());
 
 	return true;
 }
@@ -1558,11 +1577,11 @@ bool _CLIENT::user_credentials()
 {
 	char text[ MAX_CONFSTRING ];
 
-	if( config.get_string( "auth-method", text, MAX_CONFSTRING, 0 ) )
+	if( config.get_string( "auth-method", text, MAX_CONFSTRING, 0 ))
 		if( !strcmp( "hybrid-rsa-xauth", text ) ||
 			!strcmp( "hybrid-grp-xauth", text ) ||
 			!strcmp( "mutual-rsa-xauth", text ) ||
-			!strcmp( "mutual-psk-xauth", text ) )
+			!strcmp( "mutual-psk-xauth", text ))
 			return true;
 
 	return false;
@@ -1587,6 +1606,7 @@ bool _CLIENT::vpn_connect( bool wait_input )
 	}
 
 	connecting.reset();
+	generic_fail_flag = false;
 
 	exec( ( void * ) 1 );
 
@@ -1654,3 +1674,12 @@ bool _CLIENT::vpn_resume()
 
 	return true;
 }
+
+
+
+
+bool _CLIENT::generic_fail()
+{
+	return generic_fail_flag;
+}
+

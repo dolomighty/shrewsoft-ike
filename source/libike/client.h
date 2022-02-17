@@ -116,6 +116,8 @@ typedef class DLX _CLIENT : public ITH_EXEC
 	CONFIG			config;
 	CLIENT_STATE	cstate;
 
+	bool generic_fail_flag;
+
 	public:
 
 	_CLIENT();
@@ -139,6 +141,8 @@ typedef class DLX _CLIENT : public ITH_EXEC
 	bool		vpn_resume();
 
 	virtual bool	log( long code, const char * format, ... ) = 0;
+
+	bool		generic_fail();
 
 }CLIENT;
 
