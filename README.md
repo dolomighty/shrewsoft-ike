@@ -3,7 +3,10 @@
 
 config per cli - no qt:
 
-cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=NO -DETCDIR=/etc -DNATT=YES
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=NO  -DETCDIR=/etc -DNATT=YES
+
+le qt vengono compilate e tutto, ma ci sono malfunzionamenti a runtime
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=YES -DETCDIR=/etc -DNATT=YES
 
 
 
