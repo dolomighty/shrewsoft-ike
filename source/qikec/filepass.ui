@@ -121,7 +121,7 @@
  </widget>
  <resources>
   <include location="qikec.qrc"/>
-  <include location="ikec.qrc"/>
+  <include location="qikec.qrc"/>
  </resources>
  <connections/>
 </ui>
