@@ -47,23 +47,44 @@ void _qikecRoot::customEvent( QEvent * e )
 	{
 		StatusEvent * event = ( StatusEvent * ) e;
 
+		// essendo le gui moderne temizzate, i colori cambiano a seconda dei gusti.
+		// per fail/warn non va bene usare colori cablati come prima
+		// perche non si avrebbe sempre un constrasto sufficente
+		// qui guardo a spanne se lo sfondo è scuro/chiaro
+		// e scelgo tra due palette di conseguenza
+		auto bg = textBrowserStatus->palette().color(QPalette::Window);
+		QColor rgb_warn;
+		QColor rgb_fail;
+		// Luminance (standard for certain colour spaces): (0.2126*R + 0.7152*G + 0.0722*B) 
+		// la precisione interessa poco quindi vado di fixpoint
+		int luma = bg.red()*212 + bg.green()*715 + bg.blue()*73;  // max 255*1000
+		if(luma>128*1000){
+			// sfondo chiaro
+			rgb_warn = QColor(240,80,0);
+			rgb_fail = QColor(192,0,0);
+		}else{
+			// sfondo scuro
+			rgb_warn = QColor(255,220,80);
+			rgb_fail = QColor(255,100,100);
+		}
+
+
 		switch( event->status )
 		{
 			case STATUS_WARN:
-
-				textBrowserStatus->setTextColor( QColor( 192, 128, 0 ) );
-
+				textBrowserStatus->setTextColor(rgb_warn);
 				break;
 
 			case STATUS_FAIL:
-
-				textBrowserStatus->setTextColor( QColor( 128, 0, 0 ) );
-
+				textBrowserStatus->setTextColor(rgb_fail);
 				break;
 
 			default:
-
-				textBrowserStatus->setTextColor( QColor( 0, 0, 0 ) );
+				{
+					auto fg = textBrowserStatus->palette().color(QPalette::WindowText);
+					textBrowserStatus->setTextColor(fg);
+				}
+				break;
 		}
 
 		switch( event->status )

@@ -69,69 +69,69 @@ int main( int argc, char ** argv )
 	}
 
 
-//    // load our site configuration
-//
-//    if( ikec.config_load())
-//    {
-//        // autoconnect if requested
-//
-//        if( ikec.auto_connect())
-//            ikec.vpn_connect( true );
-//    }
-//
-//    // process user input
-//
-//    bool exit = false;
-//
-//    while( !exit )
-//    {
-//        char next;
-//        if( !ikec.read_key( next ))
-//            next = 'q';
-//
-//        switch( next )
-//        {
-//            case 'c': // <c> connect
-//                ikec.vpn_connect( true );
-//                break;
-//
-//            case 'd': // <d> disconnect
-//                ikec.vpn_disconnect();
-//                break;
-//
-//            case 'h': // <h> help
-//            case '?': // <?> help
-//                ikec.log( 0, "%s",
-//                    "Use the following keys to control client connectivity\n"
-//                    " - : <c> connect\n"
-//                    " - : <d> disconnect\n"
-//                    " - : <h> help\n"
-//                    " - : <s> status\n"
-//                    " - : <q> quit\n" );
-//                break;
-//
-//            case 'q': // <q> quit
-//                exit = true;
-//                break;
-//
-//            case 's': // <s> status
-//                ikec.show_stats();
-//                break;
-//        }
-//    }
+    // load our site configuration
+
+    if( ikec.config_load())
+    {
+        // autoconnect if requested
+
+        if( ikec.auto_connect())
+            ikec.vpn_connect( true );
+    }
+
+    // process user input
+
+    bool exit = false;
+
+    while( !exit )
+    {
+        char next;
+        if( !ikec.read_key( next ))
+            next = 'q';
+
+        switch( next )
+        {
+            case 'c': // <c> connect
+                ikec.vpn_connect( true );
+                break;
+
+            case 'd': // <d> disconnect
+                ikec.vpn_disconnect();
+                break;
+
+            case 'h': // <h> help
+            case '?': // <?> help
+                ikec.log( 0, "%s",
+                    "Use the following keys to control client connectivity\n"
+                    " - : <c> connect\n"
+                    " - : <d> disconnect\n"
+                    " - : <h> help\n"
+                    " - : <s> status\n"
+                    " - : <q> quit\n" );
+                break;
+
+            case 'q': // <q> quit
+                exit = true;
+                break;
+
+            case 's': // <s> status
+                ikec.show_stats();
+                break;
+        }
+    }
 
 
 
-	// versione non interattiva
-	// connessione automatica (-a)
-	// usciamo quando disconnettiamo
-
-	if( !ikec.config_load()) return 1;
-	if( !ikec.auto_connect()) return 1;
-	ikec.vpn_connect(true);
-	ikec.wait();
-
-    if( ikec.generic_fail()) return 1;
+//  // versione non interattiva
+//  // connessione automatica (-a)
+//  // usciamo quando disconnettiamo
+//
+//  if( !ikec.config_load()) return 1;
+//  if( !ikec.auto_connect()) return 1;
+//  ikec.vpn_connect(true);
+//  ikec.wait();
+//
+//    if( ikec.generic_fail()) return 1;
 
 	return 0;
 }
