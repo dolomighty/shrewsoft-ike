@@ -69,6 +69,29 @@ int main( int argc, char ** argv )
 	}
 
 
+    bool interact = true;
+    for( int i=1; i<argc; i++ ){
+        if(0==strcmp(argv[i],"-nointer")){
+            interact = false;
+            break;
+        }
+    }
+
+    if(!interact){
+        // modalità non interattiva
+        // connessione automatica forzata (come -a)
+        // usciamo con errorlevel sensato in caso di errore/disconnessione regolare
+        ikec.log( 0, "## : non-interactive mode\n" );
+        if( !ikec.config_load()) return 1;
+        if( !ikec.auto_connect()) return 1;
+        ikec.vpn_connect(true);
+        ikec.wait();
+        if( ikec.generic_fail()) return 1;
+        return 0;
+    }
+
+
+
     // load our site configuration
 
     if( ikec.config_load())
@@ -120,18 +143,5 @@ int main( int argc, char ** argv )
         }
     }
 
-
-
-//  // versione non interattiva
-//  // connessione automatica (-a)
-//  // usciamo quando disconnettiamo
-//
-//  if( !ikec.config_load()) return 1;
-//  if( !ikec.auto_connect()) return 1;
-//  ikec.vpn_connect(true);
-//  ikec.wait();
-//
-//    if( ikec.generic_fail()) return 1;
-
-	return 0;
+    return 0;
 }
