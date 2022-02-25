@@ -1,26 +1,12 @@
-<pre>
 
+## compile+install
 
-config per cli - no qt:
-
-cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=NO  -DETCDIR=/etc -DNATT=YES
-
-le qt vengono compilate e tutto, ma ci sono malfunzionamenti a runtime
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=YES -DETCDIR=/etc -DNATT=YES
-
-
-
-
-compile+install:
-
 make && sudo make install
 
 
 
-
-
-
-per debug:
+## debug
 
 pkill -f iked
 sudo iked -F -d 6
@@ -29,22 +15,16 @@ sudo iked -F -d 6
 
 
 
-per uso normale:
+## uso normale
 
 pkill -f iked
 sudo iked
 
-find /home/dmy/.ike/ -type f
+qikec -r EXTDACON@dacvpn -u TELECOMITALIA\00519575
 
-ikec -r EXTDACON@dacvpn
+pass
+05354+OTP
 
-c
-
-TELECOMITALIA\00519575
-05354...
-
-
-sudo route -n
 
 sudo route add -net 10.0.0.0/8 tap0
 sudo route add -net 172.16.0.0/12 tap0
@@ -53,3 +33,9 @@ sudo route del -net 0.0.0.0/0 tap0
 sudo route -n
 
 
+
+
+
+ikec genera questo albero:
+
+find /home/dmy/.ike/ -type f
