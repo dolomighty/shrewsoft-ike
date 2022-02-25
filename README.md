@@ -1,22 +1,24 @@
 
 ## compile+install
-
+```
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=YES -DETCDIR=/etc -DNATT=YES
 make && sudo make install
+```
 
 
 
 ## debug
-
+```
 pkill -f iked
 sudo iked -F -d 6
+```
 
 
 
 
 
 ## uso normale
-
+```
 pkill -f iked
 sudo iked
 
@@ -31,11 +33,13 @@ sudo route add -net 172.16.0.0/12 tap0
 sudo route add -net 156.0.0.0/8 tap0
 sudo route del -net 0.0.0.0/0 tap0
 sudo route -n
+```
 
 
 
 
 
 ikec genera questo albero:
-
+```
 find /home/dmy/.ike/ -type f
+```
