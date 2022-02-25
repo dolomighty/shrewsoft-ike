@@ -1,5 +1,16 @@
 
-## compile+install
+### revisione shrewsoft IKE per renderlo compatibile con le recenti release di openssl+qt+whatever
+esteso dal fork di ...
+
+stato al 2022-02-25 10:43:32
+```
+ikec ok
+iked ok
+qikec ok
+```
+
+
+compile+install
 ```
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=YES -DETCDIR=/etc -DNATT=YES
 make && sudo make install
@@ -7,7 +18,7 @@ make && sudo make install
 
 
 
-## debug
+debug
 ```
 pkill -f iked
 sudo iked -F -d 6
@@ -17,7 +28,7 @@ sudo iked -F -d 6
 
 
 
-## uso normale
+uso normale
 ```
 pkill -f iked
 sudo iked
@@ -39,7 +50,7 @@ sudo route -n
 
 
 
-ikec genera questo albero:
+ikec genera questo albero
 ```
 find /home/dmy/.ike/ -type f
 ```
