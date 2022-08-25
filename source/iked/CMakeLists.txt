@@ -102,9 +102,6 @@ set_source_files_properties(
 	conf.parse.cpp GENERATED,
 	conf.token.cpp GENERATED )
 
-# Custom target for parser
-
-add_custom_target( ConfParser echo "Creating Conf Parser" )
 
 # Custom command for flex
 
