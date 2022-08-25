@@ -324,7 +324,7 @@ endif( NOT CMAKE_USE_PTHREADS_INIT )
 if( NOT APPLE )
 
 	check_library_exists(
-		${CMAKE_THREAD_LIBS_INIT}
+		"${CMAKE_THREAD_LIBS_INIT}"
 		"pthread_mutex_timedlock"
 		""
 		FUNC_LIB_TIMEDLOCK )

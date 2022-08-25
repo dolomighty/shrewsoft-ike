@@ -109,7 +109,6 @@ add_custom_target( ConfParser echo "Creating Conf Parser" )
 # Custom command for flex
 
 add_custom_command(
-	SOURCE conf.token.ll
 	COMMAND ${PATH_BIN_FLEX}
 	ARGS -d -oconf.token.cpp conf.token.ll
 	TARGET ConfParser
@@ -118,7 +117,6 @@ add_custom_command(
 # Custom command for bison
 
 add_custom_command(
-	SOURCE conf.parse.yy
 	COMMAND ${PATH_BIN_BISON}
 	ARGS -oconf.parse.cpp conf.parse.yy
 	TARGET ConfParser
