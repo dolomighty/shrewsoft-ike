@@ -100,7 +100,7 @@ bool bdata_2_cert( X509 ** x509, BDATA & cert )
 	return true;
 }
 
-bool prvkey_rsa_2_bdata( BDATA & prvkey, RSA * rsa )
+bool prvkey_rsa_2_bdata( BDATA & prvkey, const RSA * rsa )
 {
 	int size = i2d_RSAPrivateKey( rsa, NULL );
 	prvkey.size( size );
@@ -123,7 +123,7 @@ bool bdata_2_prvkey_rsa( RSA ** rsa, BDATA & prvkey )
 	return true;
 }
 
-bool pubkey_rsa_2_bdata( BDATA & pubkey, RSA * rsa )
+bool pubkey_rsa_2_bdata( BDATA & pubkey, const RSA * rsa )
 {
 	int size = i2d_RSAPublicKey( rsa, NULL );
 	pubkey.size( size );
@@ -860,7 +860,7 @@ bool prvkey_rsa_load_pem( BDATA & prvkey, FILE * fp, BDATA & pass )
 	if( evp_pkey == NULL )
 		return false;
 
-    RSA *pkr=EVP_PKEY_get0_RSA(evp_pkey);
+    const RSA *pkr=EVP_PKEY_get0_RSA(evp_pkey);
     bool converted = prvkey_rsa_2_bdata( prvkey, pkr );
 	EVP_PKEY_free( evp_pkey );
 
@@ -887,7 +887,7 @@ bool prvkey_rsa_load_p12( BDATA & prvkey, FILE * fp, BDATA & pass )
 	if( evp_pkey == NULL )
 		return false;
 
-    RSA *pkr=EVP_PKEY_get0_RSA(evp_pkey);
+    const RSA *pkr=EVP_PKEY_get0_RSA(evp_pkey);
     bool converted = prvkey_rsa_2_bdata( prvkey, pkr );
 	EVP_PKEY_free( evp_pkey );
 
@@ -944,7 +944,7 @@ bool prvkey_rsa_load_pem( BDATA & prvkey, BDATA & input, BDATA & pass )
 	if( evp_pkey == NULL )
 		return false;
 
-    RSA *pkr=EVP_PKEY_get0_RSA(evp_pkey);
+    const RSA *pkr=EVP_PKEY_get0_RSA(evp_pkey);
     bool converted = prvkey_rsa_2_bdata( prvkey, pkr );
 	EVP_PKEY_free( evp_pkey );
 
@@ -982,7 +982,7 @@ bool prvkey_rsa_load_p12( BDATA & prvkey, BDATA & input, BDATA & pass )
 	if( evp_pkey == NULL )
 		return false;
 
-    RSA *pkr=EVP_PKEY_get0_RSA(evp_pkey);
+    const RSA *pkr=EVP_PKEY_get0_RSA(evp_pkey);
     bool converted = prvkey_rsa_2_bdata( prvkey, pkr );
 	EVP_PKEY_free( evp_pkey );
 
@@ -1017,7 +1017,7 @@ bool _IKED::pubkey_rsa_read( BDATA & cert, BDATA & pubkey )
 	if( evp_pkey == NULL )
 		return false;
 
-    RSA *pkr=EVP_PKEY_get0_RSA(evp_pkey);
+    const RSA *pkr=EVP_PKEY_get0_RSA(evp_pkey);
     bool result = pubkey_rsa_2_bdata( pubkey, pkr );
 
 	EVP_PKEY_free( evp_pkey );
