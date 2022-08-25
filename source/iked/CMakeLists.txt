@@ -111,16 +111,14 @@ add_custom_target( ConfParser echo "Creating Conf Parser" )
 add_custom_command(
 	COMMAND ${PATH_BIN_FLEX}
 	ARGS -d -oconf.token.cpp conf.token.ll
-	TARGET ConfParser
-	OUTPUTS conf.token.cpp )
+	OUTPUT conf.token.cpp )
 
 # Custom command for bison
 
 add_custom_command(
 	COMMAND ${PATH_BIN_BISON}
 	ARGS -oconf.parse.cpp conf.parse.yy
-	TARGET ConfParser
-	OUTPUTS conf.parse.cpp conf.parse.hpp location.hh position.hh stack.hh )
+	OUTPUT conf.parse.cpp conf.parse.hpp location.hh position.hh stack.hh )
 
 # install support
 
