@@ -2,11 +2,11 @@
 ### revisione shrewsoft IKE per renderlo compatibile con le recenti release di openssl+qt+whatever
 esteso dal fork di ...
 
-stato al 2022-02-25 10:43:32
+stato al 2022-08-25 23:05:27
 ```
 ikec ok
 iked ok
-qikec ok
+qikec nok (qt4 non più installabili, va portato a qt5+)
 ```
 
 
@@ -38,14 +38,14 @@ sudo iked
 qikec -r EXTDACON@dacvpn -u TELECOMITALIA\00519575
 
 pass
-05354+OTP
+OTP da TIM Secure APP
 
 
-sudo route add -net 10.0.0.0/8 tap0
-sudo route add -net 172.16.0.0/12 tap0
-sudo route add -net 156.0.0.0/8 tap0
-sudo route del -net 0.0.0.0/0 tap0
-sudo route -n
+sudo ip route add 10.0.0.0/8    dev tap0
+sudo ip route add 172.16.0.0/12 dev tap0
+sudo ip route add 156.0.0.0/8   dev tap0
+sudo ip route del 0.0.0.0/0     dev tap0
+sudo ip route
 ```
 
 
