@@ -42,8 +42,8 @@ sudo iked
 ```
 
 
-ikec ha bisogno dei files di conf per lavorare, oltre alle credenziali
-sotto sites ne ho messi due
+ikec ha bisogno dei files di conf per lavorare, oltre alle credenziali   
+sotto sites ne ho messi due   
 
 ```
 mkdir -p ~/.ike/sites
@@ -51,7 +51,8 @@ cp -f sites/* ~/.ike/sites
 ```
 
 
-ikec si può lanciare in modo interattivo, in cui accetta dei comandi (le gui usano questa modalità) oppure non-interattivo, utile per scripts in cli
+ikec si può lanciare in modo interattivo, in cui accetta dei comandi (le gui usano questa modalità)
+oppure non-interattivo, utile per scripts in cli
 
 interattivo
 ```
@@ -66,9 +67,10 @@ qikec -n -a -r EXTDACON@dacvpn -u TELECOMITALIA\00519575 -p 12345 (l'OTP di TIM 
 ```
 
 
-se tutto va bene, sarà apparsa un'interfaccia tap0
-in automatico il default gateway punta a quella
-io preferisco ritoccare la cosa, faccio si che i privati vadan sul tunnel ed i pubblici usino il routing di casa
+se tutto va bene, sarà apparsa un'interfaccia tap0   
+in automatico il default gateway punta a quella   
+io preferisco ritoccare la cosa, faccio si che i privati vadan sul tunnel
+ed i pubblici usino il routing di casa
 
 ```
 sudo ip route add 10.0.0.0/8    dev tap0
