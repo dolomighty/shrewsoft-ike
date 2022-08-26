@@ -12,7 +12,11 @@ qikec nok (qt4 non più installabili, va portato a qt5+)
 
 compile+install
 ```
-sudo apt install libssl-dev libedit-dev flex bison
+sudo apt install \
+libssl-dev \
+libedit-dev \
+flex \
+bison
 
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=NO -DETCDIR=/etc -DNATT=YES .
 make && sudo make install
