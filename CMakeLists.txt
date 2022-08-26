@@ -527,30 +527,38 @@ if( QTGUI )
 
 	add_definitions( -DQT_THREAD_SUPPORT )
 
-#	find_package(
-#		Qt4
-#		COMPONENTS QtCore QtGui REQUIRED )
-#
-#	if( NOT QT_QTGUI_FOUND )
-#
-#		message(
-#			FATAL_ERROR
-#			"Unable to locate required package : QT" )
-#
-#	endif( NOT QT_QTGUI_FOUND )
-
-
 	find_package(
 		Qt5
-		COMPONENTS Gui REQUIRED )
+		COMPONENTS Core Gui Widgets REQUIRED )
 
-	if( NOT QT_QTGUI_FOUND )
-
+	if( NOT Qt5Gui_FOUND )
 		message(
 			FATAL_ERROR
-			"Unable to locate required package : QT" )
+			"Unable to locate required package : Qt*Gui" )
+	endif( NOT Qt5Gui_FOUND )
 
-	endif( NOT QT_QTGUI_FOUND )
+
+
+#	find_package(
+#		Qt6
+#		COMPONENTS Core Gui Widgets REQUIRED )
+#
+#	if( NOT Qt6Gui_FOUND )
+#		message(
+#			FATAL_ERROR
+#			"Unable to locate required package : Qt*Gui" )
+#	endif( NOT Qt6Gui_FOUND )
+
+
+
+#get_cmake_property(_variableNames VARIABLES)
+#list (SORT _variableNames)
+#foreach (_variableName ${_variableNames})
+#    message(STATUS "${_variableName}=${${_variableName}}")
+#endforeach()
+
+
+
 
 
 

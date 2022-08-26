@@ -14,15 +14,27 @@ include_directories(
 	${IKE_SOURCE_DIR}/source/libidb
 	${IKE_SOURCE_DIR}/source/libith
 	${IKE_SOURCE_DIR}/source/liblog
-	${QT_INCLUDES} )
+	${Qt5Core_INCLUDE_DIRS} 
+	${Qt5Gui_INCLUDE_DIRS} 
+	${Qt5Widgets_INCLUDE_DIRS}
+	)
 
 link_directories(
 	${IKE_SOURCE_DIR}/source/libip
 	${QT_LIBRARY_DIR} )
 
-include( ${QT_USE_FILE} )
 
-qt4_wrap_ui(
+
+
+#get_cmake_property(_variableNames VARIABLES)
+#list (SORT _variableNames)
+#foreach (_variableName ${_variableNames})
+#    message(STATUS "${_variableName}=${${_variableName}}")
+#endforeach()
+
+
+
+qt_wrap_ui(
 	UIH_FILES
 	about.ui
 	conflict.ui
@@ -30,11 +42,11 @@ qt4_wrap_ui(
 	site.ui
 	topology.ui )
 
-qt4_wrap_cpp(
+qt_wrap_cpp(
 	CXX_FILES
 	qikea.h )
 
-qt4_add_resources(
+qt_add_resources(
 	QRC_FILES
 	qikea.qrc )
 
@@ -49,7 +61,21 @@ add_executable(
 	${CXX_FILES}
 	${QRC_FILES} )
 
-target_link_libraries(
+#TARGET_LINK_LIBRARIES(
+#	qikea
+#	ss_ike
+#	ss_idb
+#	ss_ith
+#	ss_log
+#	crypto
+#	pthread
+#	${QT_LIBRARIES} 
+#)
+
+
+TARGET_LINK_LIBRARIES (
+	${PCL_LIBRARIES} 
+	${VTK_LIBRARIES}
 	qikea
 	ss_ike
 	ss_idb
@@ -57,7 +83,11 @@ target_link_libraries(
 	ss_log
 	crypto
 	pthread
-	${QT_LIBRARIES} )
+	${QT_LIBRARIES} 
+)
+
+
+
 
 if( APPLE )
 

@@ -1,0 +1,15 @@
+-I/home/dmy/Scrivania/shrewsoft-ike/source
+-I/home/dmy/Scrivania/shrewsoft-ike/source/ikec
+-I/home/dmy/Scrivania/shrewsoft-ike/source/iked
+-I/home/dmy/Scrivania/shrewsoft-ike/source/libike
+-I/home/dmy/Scrivania/shrewsoft-ike/source/libidb
+-I/home/dmy/Scrivania/shrewsoft-ike/source/libith
+-I/home/dmy/Scrivania/shrewsoft-ike/source/liblog
+-I/home/dmy/Scrivania/shrewsoft-ike/source/libip
+-DUNIX
+-DOPT_TIMEDLOCK
+-DOPT_NATT
+-DQT_THREAD_SUPPORT
+-o
+/home/dmy/Scrivania/shrewsoft-ike/source/qikec/moc_qikec.cpp
+/home/dmy/Scrivania/shrewsoft-ike/source/qikec/qikec.h
