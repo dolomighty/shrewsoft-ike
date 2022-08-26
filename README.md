@@ -16,11 +16,10 @@ compile+install
 sudo apt install \
 libssl-dev \
 libedit-dev \
-flex bison \
-qtbase5-dev \
-qtdeclarative5-dev
+flex \
+bison
 
-cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=YES -DETCDIR=/etc -DNATT=YES .
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=NO -DETCDIR=/etc -DNATT=YES .
 make && sudo make install
 ```
 
