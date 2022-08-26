@@ -105,7 +105,7 @@ bool _QIKEC::get_username()
 
 	username.del();
 	username.set(
-		( const char * ) data.text.toAscii(), data.text.length() );
+		( const char * ) data.text.toUtf8(), data.text.length() );
 
 	return true;
 }
@@ -122,7 +122,7 @@ bool _QIKEC::get_password()
 
 	password.del();
 	password.set(
-		( const char * ) data.text.toAscii(), data.text.length() );
+		( const char * ) data.text.toUtf8(), data.text.length() );
 
 	return true;
 }
@@ -144,7 +144,7 @@ bool _QIKEC::get_filepass( BDATA & path )
 	QString text = PassData.password;
 	fpass.del();
 	fpass.set(
-		( const char * ) text.toAscii(), text.length() );
+		( const char * ) text.toUtf8(), text.length() );
 
 	return true;
 }

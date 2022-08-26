@@ -49,8 +49,8 @@ bool _qikeaTopology::verify()
 	QString Netmask = lineEditNetmask->text();
 	Netmask = Netmask.replace( ' ', "" );
 
-	in_addr_t addr = ntohl( inet_addr( Address.toAscii() ) );
-	in_addr_t mask = ntohl( inet_addr( Netmask.toAscii() ) );
+	in_addr_t addr = ntohl( inet_addr( Address.toUtf8() ) );
+	in_addr_t mask = ntohl( inet_addr( Netmask.toUtf8() ) );
 
 	// verify the netmask
 

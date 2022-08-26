@@ -837,7 +837,7 @@ bool _qikeaSite::save( CONFIG & config )
 	// remote name or address
 
 	config.set_string( "network-host",
-		lineEditHost->text().toAscii(),
+		lineEditHost->text().toUtf8(),
 		lineEditHost->text().length() );
 
 	// remote ike port
@@ -929,7 +929,7 @@ bool _qikeaSite::save( CONFIG & config )
 			Address = Address.replace( ' ', "" );
 
 			config.set_string( "client-ip-addr",
-				Address.toAscii(),
+				Address.toUtf8(),
 				Address.length() );
 
 			// adapter netmask
@@ -938,7 +938,7 @@ bool _qikeaSite::save( CONFIG & config )
 			Netmask = Netmask.replace( ' ', "" );
 
 			config.set_string( "client-ip-mask",
-				Netmask.toAscii(),
+				Netmask.toUtf8(),
 				Netmask.length() );
 		}
 	}
@@ -948,7 +948,7 @@ bool _qikeaSite::save( CONFIG & config )
 	// nat traversal mode
 
 	config.set_string( "network-natt-mode",
-		comboBoxNATTMode->currentText().toAscii(),
+		comboBoxNATTMode->currentText().toUtf8(),
 		comboBoxNATTMode->currentText().length() );
 
 	// natt not disabled
@@ -971,7 +971,7 @@ bool _qikeaSite::save( CONFIG & config )
 	// ike fragment mode
 
 	config.set_string( "network-frag-mode",
-		comboBoxFragMode->currentText().toAscii(),
+		comboBoxFragMode->currentText().toUtf8(),
 		comboBoxFragMode->currentText().length() );
 
 	// ike frag not disabled
@@ -1040,33 +1040,33 @@ bool _qikeaSite::save( CONFIG & config )
 			DNSServer = lineEditDNSServer1->text();
 			DNSServer = DNSServer.replace( ' ', "" );
 
-			if( inet_addr( DNSServer.toAscii() ) )
+			if( inet_addr( DNSServer.toUtf8() ) )
 				config.add_string( "client-dns-addr",
-					DNSServer.toAscii(),
+					DNSServer.toUtf8(),
 					DNSServer.length() );
 
 			DNSServer = lineEditDNSServer2->text();
 			DNSServer = DNSServer.replace( ' ', "" );
 
-			if( inet_addr( DNSServer.toAscii() ) )
+			if( inet_addr( DNSServer.toUtf8() ) )
 				config.add_string( "client-dns-addr",
-					DNSServer.toAscii(),
+					DNSServer.toUtf8(),
 					DNSServer.length() );
 
 			DNSServer = lineEditDNSServer3->text();
 			DNSServer = DNSServer.replace( ' ', "" );
 
-			if( inet_addr( DNSServer.toAscii() ) )
+			if( inet_addr( DNSServer.toUtf8() ) )
 				config.add_string( "client-dns-addr",
-					DNSServer.toAscii(),
+					DNSServer.toUtf8(),
 					DNSServer.length() );
 
 			DNSServer = lineEditDNSServer4->text();
 			DNSServer = DNSServer.replace( ' ', "" );
 
-			if( inet_addr( DNSServer.toAscii() ) )
+			if( inet_addr( DNSServer.toUtf8() ) )
 				config.add_string( "client-dns-addr",
-					DNSServer.toAscii(),
+					DNSServer.toUtf8(),
 					DNSServer.length() );
 		}
 
@@ -1085,7 +1085,7 @@ bool _qikeaSite::save( CONFIG & config )
 			config.del( "client-dns-suffix" );
 
 			config.set_string( "client-dns-suffix",
-				lineEditDNSSuffix->text().toAscii(),
+				lineEditDNSSuffix->text().toUtf8(),
 				lineEditDNSSuffix->text().length() );
 		}
 	}
@@ -1157,7 +1157,7 @@ bool _qikeaSite::save( CONFIG & config )
 
 	if( lineEditLocalIDData->isEnabled() )
 		config.set_string( "ident-client-data",
-			lineEditLocalIDData->text().toAscii(),
+			lineEditLocalIDData->text().toUtf8(),
 			lineEditLocalIDData->text().length() );
 	else
 		config.del( "ident-client-data" );
@@ -1194,7 +1194,7 @@ bool _qikeaSite::save( CONFIG & config )
 
 	if( lineEditRemoteIDData->isEnabled() )
 		config.set_string( "ident-server-data",
-			lineEditRemoteIDData->text().toAscii(),
+			lineEditRemoteIDData->text().toUtf8(),
 			lineEditRemoteIDData->text().length() );
 	else
 		config.del( "ident-server-data" );
@@ -1204,11 +1204,11 @@ bool _qikeaSite::save( CONFIG & config )
 	if( pathCAFile.size() )
 	{
 		config.set_string( "auth-server-cert-name",
-			lineEditCAName->text().toAscii(),
+			lineEditCAName->text().toUtf8(),
 			lineEditCAName->text().length() );
 
 		BDATA fileData;
-		fileData.file_load( pathCAFile.toAscii() );
+		fileData.file_load( pathCAFile.toUtf8() );
 		config.set_binary( "auth-server-cert-data",
 			fileData );
 	}
@@ -1224,11 +1224,11 @@ bool _qikeaSite::save( CONFIG & config )
 	if( pathCertFile.size() )
 	{
 		config.set_string( "auth-client-cert-name",
-			lineEditCertName->text().toAscii(),
+			lineEditCertName->text().toUtf8(),
 			lineEditCertName->text().length() );
 
 		BDATA fileData;
-		fileData.file_load( pathCertFile.toAscii() );
+		fileData.file_load( pathCertFile.toUtf8() );
 		config.set_binary( "auth-client-cert-data",
 			fileData );
 	}
@@ -1244,11 +1244,11 @@ bool _qikeaSite::save( CONFIG & config )
 	if( pathPKeyFile.size() )
 	{
 		config.set_string( "auth-client-key-name",
-			lineEditPKeyName->text().toAscii(),
+			lineEditPKeyName->text().toUtf8(),
 			lineEditPKeyName->text().length() );
 
 		BDATA fileData;
-		fileData.file_load( pathPKeyFile.toAscii() );
+		fileData.file_load( pathPKeyFile.toUtf8() );
 		config.set_binary( "auth-client-key-data",
 			fileData );
 	}
@@ -1265,7 +1265,7 @@ bool _qikeaSite::save( CONFIG & config )
 	{
 		BDATA psk;
 		psk.set(
-			( const char * ) lineEditPSK->text().toAscii(),
+			( const char * ) lineEditPSK->text().toUtf8(),
 			lineEditPSK->text().length() );
 		config.set_binary( "auth-mutual-psk", psk );
 	}
@@ -1293,7 +1293,7 @@ bool _qikeaSite::save( CONFIG & config )
 	// phase1 cipher algorithm
 
 	config.set_string( "phase1-cipher",
-		comboBoxP1Cipher->currentText().toAscii(),
+		comboBoxP1Cipher->currentText().toUtf8(),
 		comboBoxP1Cipher->currentText().length() );
 
 	// phase1 cipher key length
@@ -1304,7 +1304,7 @@ bool _qikeaSite::save( CONFIG & config )
 	// phase1 hash algorithm
 
 	config.set_string( "phase1-hash",
-		comboBoxP1Hash->currentText().toAscii(),
+		comboBoxP1Hash->currentText().toUtf8(),
 		comboBoxP1Hash->currentText().length() );
 
 	// phase1 key life time
@@ -1327,7 +1327,7 @@ bool _qikeaSite::save( CONFIG & config )
 	// phase2 trasform algorithm
 
 	config.set_string( "phase2-transform",
-		comboBoxP2Transform->currentText().toAscii(),
+		comboBoxP2Transform->currentText().toUtf8(),
 		comboBoxP2Transform->currentText().length() );
 
 	// phase2 transform key length
@@ -1338,7 +1338,7 @@ bool _qikeaSite::save( CONFIG & config )
 	// phase2 hmac algorithm
 
 	config.set_string( "phase2-hmac",
-		comboBoxP2HMAC->currentText().toAscii(),
+		comboBoxP2HMAC->currentText().toUtf8(),
 		comboBoxP2HMAC->currentText().length() );
 
 	// phase2 pfs group
@@ -1360,13 +1360,13 @@ bool _qikeaSite::save( CONFIG & config )
 	// ipcomp transform algorithm
 
 	config.set_string( "ipcomp-transform",
-		comboBoxP2Compress->currentText().toAscii(),
+		comboBoxP2Compress->currentText().toUtf8(),
 		comboBoxP2Compress->currentText().length() );
 
 	// policy level option
 
 	config.set_string( "policy-level",
-		comboBoxPolicyLevel->currentText().toAscii(),
+		comboBoxPolicyLevel->currentText().toUtf8(),
 		comboBoxPolicyLevel->currentText().length() );
 
 	// policy nailed sa option
@@ -1409,7 +1409,7 @@ bool _qikeaSite::save( CONFIG & config )
 				// include
 
 				config.add_string( "policy-list-include",
-					i->text( 0 ).toAscii(),
+					i->text( 0 ).toUtf8(),
 					i->text( 0 ).length() );
 			}
 
@@ -1418,7 +1418,7 @@ bool _qikeaSite::save( CONFIG & config )
 				// exlcude
 
 				config.add_string( "policy-list-exclude",
-					i->text( 0 ).toAscii(),
+					i->text( 0 ).toUtf8(),
 					i->text( 0 ).length() );
 			}
 		}
@@ -1456,7 +1456,7 @@ bool _qikeaSite::verify()
 
 			QString Address = lineEditAddress->text();
 			Address = Address.replace( ' ', "" );
-			uint32_t addr = inet_addr( Address.toAscii() );
+			uint32_t addr = inet_addr( Address.toUtf8() );
 
 			if( !addr || ( addr == INADDR_NONE ) )
 				errmsg = "Please enter valid virtual adapter address.";
@@ -1465,7 +1465,7 @@ bool _qikeaSite::verify()
 
 			QString Netmask = lineEditNetmask->text();
 			Netmask = Netmask.replace( ' ', "" );
-			uint32_t mask = inet_addr( Netmask.toAscii() );
+			uint32_t mask = inet_addr( Netmask.toUtf8() );
 
 			if( !mask )
 				errmsg = "Please enter valid virtual adapter netmask.";
@@ -1487,7 +1487,7 @@ bool _qikeaSite::verify()
 
 			DNSServer = lineEditDNSServer1->text();
 			DNSServer = DNSServer.replace( ' ', "" );
-			addr = inet_addr( DNSServer.toAscii() );
+			addr = inet_addr( DNSServer.toUtf8() );
 
 			if( addr && ( addr == INADDR_NONE ) )
 				errmsg = "Please enter valid DNS server #1 address.";
