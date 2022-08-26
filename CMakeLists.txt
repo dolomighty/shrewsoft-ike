@@ -9,6 +9,8 @@
 
 project( IKE )
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC ")
+
 cmake_minimum_required(VERSION 3.8.0 FATAL_ERROR)
 
 if( COMMAND cmake_policy )
@@ -61,6 +63,14 @@ set(
 	/usr/share
 	/usr )
 
+
+
+
+
+
+
+
+
 #
 # Apple OSX Target Constants
 #
@@ -77,6 +87,14 @@ if( APPLE )
 		CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations" )
 
 endif( APPLE )
+
+
+
+
+
+
+
+
 
 #
 # Path Option Checks
@@ -201,6 +219,15 @@ message(
 	STATUS
 	"Using lib install path ${PATH_LIB} ..." )
 
+
+
+
+
+
+
+
+
+
 # man install path
 
 if( MANDIR )
@@ -245,6 +272,14 @@ if( KRNINC )
 
 endif( KRNINC )
 
+
+
+
+
+
+
+
+
 #
 # PreRequisite Checks
 #
@@ -261,12 +296,16 @@ find_path(
 	PATHS ${SEARCH_INC} )
 
 if( NOT PATH_INC_CRYPTO )
-
 	message(
 		FATAL_ERROR
 		"Unable to locate openssl crypto include files" )
-
 endif( NOT PATH_INC_CRYPTO )
+
+
+
+
+
+
 
 find_library(
 	PATH_LIB_CRYPTO
@@ -274,11 +313,9 @@ find_library(
 	PATHS ${SEARCH_LIB} )
 
 if( NOT PATH_LIB_CRYPTO )
-
 	message(
 		FATAL_ERROR
 		"Unable to locate openssl crypto library file" )
-
 endif( NOT PATH_LIB_CRYPTO )
 
 find_path(
@@ -287,12 +324,15 @@ find_path(
 	PATHS ${SEARCH_INC} )
 
 if( NOT PATH_INC_EDIT )
-
 	message(
 		FATAL_ERROR
 		"Unable to locate libedit include files" )
-
 endif( NOT PATH_INC_EDIT )
+
+
+
+
+
 
 find_library(
 	PATH_LIB_EDIT
@@ -300,12 +340,17 @@ find_library(
 	PATHS ${SEARCH_LIB} )
 
 if( NOT PATH_LIB_EDIT )
-
 	message(
 		FATAL_ERROR
 		"Unable to locate libedit library file" )
-
 endif( NOT PATH_LIB_EDIT )
+
+
+
+
+
+
+
 
 find_package(Threads)
 
@@ -314,22 +359,30 @@ message(
 	"Using library ${CMAKE_THREAD_LIBS_INIT}" )
 
 if( NOT CMAKE_USE_PTHREADS_INIT )
-
 	message(
 		FATAL_ERROR
 		"Unable to locate required package : pthreads" )
-
 endif( NOT CMAKE_USE_PTHREADS_INIT )
 
-if( NOT APPLE )
 
+
+
+
+
+
+
+if( NOT APPLE )
 	check_library_exists(
 		"${CMAKE_THREAD_LIBS_INIT}"
 		"pthread_mutex_timedlock"
 		""
 		FUNC_LIB_TIMEDLOCK )
-
 endif( NOT APPLE )
+
+
+
+
+
 
 if( FUNC_LIB_TIMEDLOCK )
 
@@ -399,6 +452,12 @@ if( NOT PATH_INC_PFKEYV2 )
 		"Unable to locate system pfkeyv2 include file" )
 
 endif( NOT PATH_INC_PFKEYV2 )
+
+
+
+
+
+
 
 #
 # Build Option Checks
@@ -472,6 +531,14 @@ if( NATT )
 
 endif( NATT )
 
+
+
+
+
+
+
+
+
 # LDAP support option
 
 if( LDAP )
@@ -521,6 +588,14 @@ if( LDAP )
 
 endif( LDAP )
 
+
+
+
+
+
+
+
+
 # Client GUI option
 
 if( QTGUI )
@@ -556,9 +631,6 @@ if( QTGUI )
 #foreach (_variableName ${_variableNames})
 #    message(STATUS "${_variableName}=${${_variableName}}")
 #endforeach()
-
-
-
 
 
 

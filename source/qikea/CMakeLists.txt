@@ -61,21 +61,7 @@ add_executable(
 	${CXX_FILES}
 	${QRC_FILES} )
 
-#TARGET_LINK_LIBRARIES(
-#	qikea
-#	ss_ike
-#	ss_idb
-#	ss_ith
-#	ss_log
-#	crypto
-#	pthread
-#	${QT_LIBRARIES} 
-#)
-
-
-TARGET_LINK_LIBRARIES (
-	${PCL_LIBRARIES} 
-	${VTK_LIBRARIES}
+TARGET_LINK_LIBRARIES(
 	qikea
 	ss_ike
 	ss_idb
@@ -85,6 +71,20 @@ TARGET_LINK_LIBRARIES (
 	pthread
 	${QT_LIBRARIES} 
 )
+
+
+#TARGET_LINK_LIBRARIES (
+##	${PCL_LIBRARIES} 
+##	${VTK_LIBRARIES}
+#	qikea
+#	ss_ike
+#	ss_idb
+#	ss_ith
+#	ss_log
+#	crypto
+#	pthread
+#	${QT_LIBRARIES} 
+#)
 
 
 
