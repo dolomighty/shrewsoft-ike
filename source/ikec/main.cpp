@@ -69,15 +69,7 @@ int main( int argc, char ** argv )
 	}
 
 
-    bool interact = true;
-    for( int i=1; i<argc; i++ ){
-        if(0==strcmp(argv[i],"-nointer")){
-            interact = false;
-            break;
-        }
-    }
-
-    if(!interact){
+    if(!ikec.interactive){
         // modalità non interattiva
         // connessione automatica forzata (come -a)
         // usciamo con errorlevel sensato in caso di errore/disconnessione regolare

@@ -16,7 +16,3 @@
 /usr/lib/libss_log.so
 /usr/lib/libss_pfk.so.2.2.1
 /usr/lib/libss_pfk.so
-/usr/bin/qikea
-/usr/local/man/man1/qikea.1
-/usr/bin/qikec
-/usr/local/man/man1/qikec.1

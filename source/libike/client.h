@@ -120,6 +120,8 @@ typedef class DLX _CLIENT : public ITH_EXEC
 
 	public:
 
+	bool	interactive;
+
 	_CLIENT();
 	virtual ~_CLIENT();
 

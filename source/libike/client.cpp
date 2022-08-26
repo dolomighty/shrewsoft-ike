@@ -1396,6 +1396,7 @@ _CLIENT::_CLIENT()
 	cstate = CLIENT_STATE_DISCONNECTED;
 	autoconnect = false;
 	suspended = false;
+	interactive = true;
 }
 
 _CLIENT::~_CLIENT()
@@ -1508,6 +1509,16 @@ OPT_RESULT _CLIENT::read_opts( int argc, char ** argv )
 			continue;
 		}
 
+        // modalità non interattiva
+        // connessione automatica forzata (come -a)
+        // usciamo con errorlevel sensato in caso di errore/disconnessione regolare
+
+		if( !strcmp( argv[ argi ], "-n" ))
+		{
+			interactive = false;
+			continue;
+		}
+
 		// syntax error
 
 		return OPT_RESULT_SYNTAX_ERROR;
@@ -1527,12 +1538,14 @@ void _CLIENT::show_help()
 		"invalid parameters specified ...\n" );
 
 	log( STATUS_INFO,
-		"%s -r \"name\" [ -u <user> ][ -p <pass> ][ -a ]\n"
+		"usage:\n"
+		"%s -r \"name\" [ -u <user> ][ -p <pass> ][ -a ][ -n ]\n"
 		" -r\tsite configuration path\n"
 		" -u\tconnection user name\n"
 		" -p\tconnection user password\n"
-		" -a\tauto connect\n",
-		app_name());
+		" -a\tauto connect\n"
+		" -n\tnon-interactive mode\n"
+		, app_name());
 }
 
 bool _CLIENT::config_load()
