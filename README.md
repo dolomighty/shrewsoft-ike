@@ -23,9 +23,9 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=NO -DETCDIR=/etc -DNATT=YES .
 make && sudo make install
 ```
 
-vengono prodotti ikec e iked
--ikec è il client locale, legge le info di auth e le conf, parla con iked
--iked è il demone (simile ad ipsec) che gestisce i tunnel veri e propri
+vengono prodotti ikec e iked.
+-ikec è il client locale, legge le info di auth e le conf, parla con iked.
+-iked è il demone (simile ad ipsec) che gestisce i tunnel veri e propri.
 
 iked si può lanciare in debug o normale:
 
