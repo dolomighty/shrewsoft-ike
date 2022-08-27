@@ -9,7 +9,3 @@ make clean
     echo ike.zip
 ) | xargs rm -fR 
 
-#cmake -Bbuild -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=NO -DETCDIR=/etc -DNATT=YES
-#cmake .
-#make
-

@@ -8,11 +8,13 @@ aggiornato per ubuntu 22
 compile+install
 ```
 sudo apt install \
-libssl-dev  \
-libedit-dev \
-flex        \
-bison       \
-*qt5*dev
+build-essential \
+libssl-dev      \
+libedit-dev     \
+*qt5*dev        \
+cmake           \
+bison           \
+flex
 
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=YES -DETCDIR=/etc -DNATT=YES .
 
