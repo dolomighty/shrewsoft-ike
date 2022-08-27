@@ -25,6 +25,8 @@ lib*.so*
 *.qrc.depends
 moc_*.cxx
 qrc_*.cxx
+moc_*.cpp
+qrc_*.cpp
 ui_*.h
 
 # Misc #

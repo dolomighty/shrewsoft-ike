@@ -1,49 +1,36 @@
 
-### revisione shrewsoft IKE per renderlo compatibile con le recenti release di openssl+qt+whatever
+### Shrewsoft IKE
 
-esteso dal fork di ...
+aggiornato per ubuntu 22
 
-stato al 2022-08-25 23:05:27
-```
-ikec ok
-iked ok
-qikec nok (qt4 non più installabili, va portato a qt5+)
-```
 
 
 compile+install
 ```
 sudo apt install \
-libssl-dev \
+libssl-dev  \
 libedit-dev \
-flex \
-bison
+flex        \
+bison       \
+*qt5*dev
 
-cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=NO -DETCDIR=/etc -DNATT=YES .
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=YES -DETCDIR=/etc -DNATT=YES .
+
 make && sudo make install
 ```
 
-vengono prodotti ikec e iked   
--ikec è il client locale, legge le info di auth e le conf, parla con iked   
--iked è il demone (simile ad ipsec) che gestisce i tunnel veri e propri  
+iked, il servizio ipsec vero e proprio, deve essere attivo  
 
-iked si può lanciare in debug o normale:   
+```
+sudo pkill -f iked
+#sudo iked -F -d 6    # debug
+sudo iked	          # normale (demone)
 
-debug
-```
-pkill -f iked
-sudo iked -F -d 6
-```
-
-normale
-```
-pkill -f iked
-sudo iked
 ```
 
 
-ikec ha bisogno dei files di conf per lavorare, oltre alle credenziali   
-sotto sites ne ho messi due   
+le due conf usate in tim sono sotto sites  
+cmq si possono creare con qikea
 
 ```
 mkdir -p ~/.ike/sites
@@ -51,8 +38,7 @@ cp -f sites/* ~/.ike/sites
 ```
 
 
-ikec si può lanciare in modo interattivo, in cui accetta dei comandi (le gui usano questa modalità)
-oppure non-interattivo, utile per scripts in cli
+ikec si può lanciare in modo interattivo e non (utile per scripts in cli)
 
 interattivo
 ```
@@ -79,7 +65,5 @@ sudo ip route add 156.0.0.0/8   dev tap0
 sudo ip route del 0.0.0.0/0     dev tap0
 sudo ip route | column -t
 ```
-
-
 
 
