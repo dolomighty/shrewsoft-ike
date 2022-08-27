@@ -55,7 +55,11 @@ target_link_libraries(
 	ss_log
 	crypto
 	pthread
-	${QT_LIBRARIES} )
+	${QT_LIBRARIES} 
+	Qt5::Core
+	Qt5::Gui
+	Qt5::Widgets
+)
 
 if( APPLE )
 
