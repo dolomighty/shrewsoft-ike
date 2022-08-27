@@ -40,6 +40,7 @@
  */
 
 #include "qikea.h"
+#include "persist.h"
 
 bool file_to_bdata( QString path, BDATA & bdata )
 {
@@ -164,11 +165,13 @@ void _qikeaRoot::siteContext( const QPoint & pos )
 void _qikeaRoot::showViewLarge()
 {
 	listWidgetSites->setViewMode( QListView::IconMode );
+	persist_set("listWidgetSites","IconMode");
 }
 
 void _qikeaRoot::showViewSmall()
 {
 	listWidgetSites->setViewMode( QListView::ListMode );
+	persist_set("listWidgetSites","ListMode");
 }
 
 void _qikeaRoot::siteConnect()

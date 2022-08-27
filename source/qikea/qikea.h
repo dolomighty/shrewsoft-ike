@@ -98,6 +98,9 @@ typedef class _qikeaRoot : public QMainWindow, public Ui::qikeaRoot
 		connect( actionViewLarge, SIGNAL( triggered() ), this, SLOT( showViewLarge() ) );
 		connect( actionViewSmall, SIGNAL( triggered() ), this, SLOT( showViewSmall() ) );
 
+//		// voglio legare una fn al cambio di visibilità
+//		connect( toolBar, SIGNAL( visibilityChanged() ), this, SLOT( showViewSmall() ) );
+
 		connect( actionImport, SIGNAL( triggered() ), this, SLOT( siteImport() ) );
 		connect( actionExport, SIGNAL( triggered() ), this, SLOT( siteExport() ) );
 

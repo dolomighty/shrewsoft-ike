@@ -40,6 +40,7 @@
  */
 
 #include "qikea.h"
+#include "persist.h"
 
 _QIKEA::_QIKEA()
 {
@@ -75,6 +76,14 @@ bool _QIKEA::init( qikeaRoot * setRoot )
 
 		config.del_all();
 	}
+
+
+    r->listWidgetSites->setViewMode( QListView::ListMode );
+
+#define STREQ(A,B) (0==strcmp(A,B))
+    if(STREQ("IconMode",persist_get("listWidgetSites"))){
+        r->listWidgetSites->setViewMode( QListView::IconMode );
+    }
 
 	return true;
 }
