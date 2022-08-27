@@ -21,7 +21,7 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr -DQTGUI=YES -DETCDIR=/etc -DNATT=YES .
 make && sudo make install
 ```
 
-iked, il servizio ipsec vero e proprio, deve essere attivo  
+iked, il servizio ipsec vero e proprio, deve essere attivo perché ikec/qikea/qikec possano funzionare  
 
 ```
 sudo pkill -f iked
@@ -29,6 +29,17 @@ sudo pkill -f iked
 sudo iked	          # normale (demone)
 
 ```
+
+il file script/linux/nm/ike-routes è uno script per network manager    
+fa si di installare automaticamente delle rotte quando il tunnel sale  
+i privati andranno sul tunnel, i pubblici useranno il normale routing di casa  
+va copiato in /etc/NetworkManager/dispatcher.d/  
+
+```
+sudo cp script/linux/nm/ike-routes /etc/NetworkManager/dispatcher.d/
+```
+
+
 
 
 le due conf usate in tim sono sotto sites  
@@ -53,19 +64,4 @@ non interattivo
 ```
 qikec -n -a -r EXTDACON@dacvpn -u TELECOMITALIA\00519575 -p 12345 (l'OTP di TIM Secure APP)
 ```
-
-
-se tutto va bene, sarà apparsa un'interfaccia tap0   
-in automatico il default gateway punta a quella   
-io preferisco ritoccare la cosa, faccio si che i privati vadan sul tunnel
-ed i pubblici usino il routing di casa
-
-```
-sudo ip route add 10.0.0.0/8    dev tap0
-sudo ip route add 172.16.0.0/12 dev tap0
-sudo ip route add 156.0.0.0/8   dev tap0
-sudo ip route del 0.0.0.0/0     dev tap0
-sudo ip route | column -t
-```
-
 

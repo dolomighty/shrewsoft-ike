@@ -1,0 +1,13 @@
+#!/bin/sh
+INTF=$1
+UPDN=$2
+[ "$UPDN" != up   ] && exit
+[ "$INTF" != tap0 ] && exit
+#date +"%F %T $*" >> /root/ike-routes.log
+
+ip route add 10.0.0.0/8    dev tap0
+ip route add 172.16.0.0/12 dev tap0
+ip route add 156.0.0.0/8   dev tap0
+ip route del 0.0.0.0/0     dev tap0
+
+# /etc/NetworkManager/dispatcher.d/ike-routes
