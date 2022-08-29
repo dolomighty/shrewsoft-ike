@@ -59,6 +59,8 @@
 #include "ui_topology.h"
 #include "ui_about.h"
 
+#include "persist.h"
+
 #define	CONFLICT_OVERWRITE	100
 #define	CONFLICT_CONTINUE	101
 
@@ -66,46 +68,48 @@ typedef class _qikeaRoot : public QMainWindow, public Ui::qikeaRoot
 {
 	Q_OBJECT
 
-	QActionGroup *	actionGroupView;
-	QMenu *			menuContext;
-	QMenu *			menuContextView;
+	QActionGroup *actionGroupView;
+	QMenu        *menuContext;
+	QMenu        *menuContextView;
 
 	public:
 
 	_qikeaRoot( QWidget * parent = NULL ) : QMainWindow( parent )
 	{
+		// intanto che la ui viene inizializzata
+		// evitiamo di sovrascrivere il db di persistenza
+	    persist_rdonly();
 		setupUi( this );
 
 		actionGroupView = new QActionGroup( this );
 		actionGroupView->addAction( actionViewLarge );
 		actionGroupView->addAction( actionViewSmall );
 
-		menuView->addAction( toolBar->toggleViewAction() );
+		menuView->addAction( toolBar->toggleViewAction());
 
 		menuContext = new QMenu( listWidgetSites );
 		menuContextView = new QMenu( "View", listWidgetSites );
 
-		connect( listWidgetSites, SIGNAL( customContextMenuRequested( const QPoint & ) ), this, SLOT( siteContext( const QPoint & ) ) );
-		connect( listWidgetSites, SIGNAL( itemChanged( QListWidgetItem * ) ), this, SLOT( siteRenamed( QListWidgetItem * ) ) );
-		connect( listWidgetSites, SIGNAL( itemDoubleClicked ( QListWidgetItem * ) ), this, SLOT( siteConnect() ) ); 
+		connect( listWidgetSites, SIGNAL( customContextMenuRequested( const QPoint & )), this, SLOT( siteContext( const QPoint & )));
+		connect( listWidgetSites, SIGNAL( itemChanged( QListWidgetItem * )), this, SLOT( siteRenamed( QListWidgetItem * )));
+		connect( listWidgetSites, SIGNAL( itemDoubleClicked( QListWidgetItem * )), this, SLOT( siteConnect())); 
 
-		connect( actionConnect, SIGNAL( triggered() ), this, SLOT( siteConnect() ) );
-		connect( actionAdd, SIGNAL( triggered() ), this, SLOT( siteAdd() ) );
-		connect( actionModify, SIGNAL( triggered() ), this, SLOT( siteModify() ) );
-		connect( actionDelete, SIGNAL( triggered() ), this, SLOT( siteDelete() ) );
-		connect( actionRename, SIGNAL( triggered() ), this, SLOT( siteRename() ) );
+		connect( actionConnect, SIGNAL( triggered()), this, SLOT( siteConnect()));
+		connect( actionAdd, SIGNAL( triggered()), this, SLOT( siteAdd()));
+		connect( actionModify, SIGNAL( triggered()), this, SLOT( siteModify()));
+		connect( actionDelete, SIGNAL( triggered()), this, SLOT( siteDelete()));
+		connect( actionRename, SIGNAL( triggered()), this, SLOT( siteRename()));
 
-		connect( actionViewLarge, SIGNAL( triggered() ), this, SLOT( showViewLarge() ) );
-		connect( actionViewSmall, SIGNAL( triggered() ), this, SLOT( showViewSmall() ) );
+		connect( actionViewLarge, SIGNAL( triggered()), this, SLOT( showViewLarge()));
+		connect( actionViewSmall, SIGNAL( triggered()), this, SLOT( showViewSmall()));
 
-//		// voglio legare una fn al cambio di visibilità
-//		connect( toolBar, SIGNAL( visibilityChanged() ), this, SLOT( showViewSmall() ) );
+		connect( toolBar, SIGNAL( visibilityChanged( bool )), this, SLOT( toolbar_view_changed( bool )));
 
-		connect( actionImport, SIGNAL( triggered() ), this, SLOT( siteImport() ) );
-		connect( actionExport, SIGNAL( triggered() ), this, SLOT( siteExport() ) );
+		connect( actionImport, SIGNAL( triggered()), this, SLOT( siteImport()));
+		connect( actionExport, SIGNAL( triggered()), this, SLOT( siteExport()));
 
-		connect( actionAbout, SIGNAL( triggered() ), this, SLOT( showAbout() ) );
-		connect( actionExit, SIGNAL( triggered() ), this, SLOT( close() ) );
+		connect( actionAbout, SIGNAL( triggered()), this, SLOT( showAbout()));
+		connect( actionExit, SIGNAL( triggered()), this, SLOT( close()));
 	}
 
 	void fileConflict( QString & path, QString & name );
@@ -114,6 +118,7 @@ typedef class _qikeaRoot : public QMainWindow, public Ui::qikeaRoot
 
 	void showViewLarge();
 	void showViewSmall();
+	void toolbar_view_changed( bool visible );
 
 	void siteContext( const QPoint & pos );
 
@@ -146,44 +151,44 @@ typedef class _qikeaSite : public QDialog, public Ui::qikeaSite
 		setupUi( this );
 		init();
 
-		connect( buttonSave, SIGNAL( clicked() ), this, SLOT( verify() ) );
-		connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
+		connect( buttonSave, SIGNAL( clicked()), this, SLOT( verify()));
+		connect( buttonCancel, SIGNAL( clicked()), this, SLOT( reject()));
 
-		connect( checkBoxAddressAuto, SIGNAL( clicked() ), this, SLOT( updateAddressAuto() ) );
+		connect( checkBoxAddressAuto, SIGNAL( clicked()), this, SLOT( updateAddressAuto()));
 
-		connect( checkBoxDNSEnable, SIGNAL( clicked() ), this, SLOT( updateNameResolution() ) );
-		connect( checkBoxDNSAuto, SIGNAL( clicked() ), this, SLOT( updateNameResolution() ) );
-		connect( checkBoxSuffixAuto, SIGNAL( clicked() ), this, SLOT( updateNameResolution() ) );
+		connect( checkBoxDNSEnable, SIGNAL( clicked()), this, SLOT( updateNameResolution()));
+		connect( checkBoxDNSAuto, SIGNAL( clicked()), this, SLOT( updateNameResolution()));
+		connect( checkBoxSuffixAuto, SIGNAL( clicked()), this, SLOT( updateNameResolution()));
 
-		connect( checkBoxLocalIDOption, SIGNAL( clicked() ), this, SLOT( updateLocalID() ) );
-		connect( checkBoxRemoteIDOption, SIGNAL( clicked() ), this, SLOT( updateRemoteID() ) );
+		connect( checkBoxLocalIDOption, SIGNAL( clicked()), this, SLOT( updateLocalID()));
+		connect( checkBoxRemoteIDOption, SIGNAL( clicked()), this, SLOT( updateRemoteID()));
 
-		connect( checkBoxPolicyAuto, SIGNAL( clicked() ), this, SLOT( updatePolicy() ) );
+		connect( checkBoxPolicyAuto, SIGNAL( clicked()), this, SLOT( updatePolicy()));
 
-		connect( comboBoxAuthMethod, SIGNAL( activated( int ) ), this, SLOT( updateAuthentication() ) );
-		connect( comboBoxConfigMethod, SIGNAL( activated( int ) ), this, SLOT( updateConfigMethod() ) );
-		connect( comboBoxAddressMethod, SIGNAL( activated( int ) ), this, SLOT( updateAddressMethod() ) );
+		connect( comboBoxAuthMethod, SIGNAL( activated( int )), this, SLOT( updateAuthentication()));
+		connect( comboBoxConfigMethod, SIGNAL( activated( int )), this, SLOT( updateConfigMethod()));
+		connect( comboBoxAddressMethod, SIGNAL( activated( int )), this, SLOT( updateAddressMethod()));
 
-		connect( comboBoxFragMode, SIGNAL( activated( int ) ), this, SLOT( updateClient() ) );
-		connect( comboBoxNATTMode, SIGNAL( activated( int ) ), this, SLOT( updateClient() ) );
+		connect( comboBoxFragMode, SIGNAL( activated( int )), this, SLOT( updateClient()));
+		connect( comboBoxNATTMode, SIGNAL( activated( int )), this, SLOT( updateClient()));
 
-		connect( comboBoxLocalIDType, SIGNAL( activated( int ) ), this, SLOT( updateLocalID() ) );
-		connect( comboBoxRemoteIDType, SIGNAL( activated( int ) ), this, SLOT( updateRemoteID() ) );
+		connect( comboBoxLocalIDType, SIGNAL( activated( int )), this, SLOT( updateLocalID()));
+		connect( comboBoxRemoteIDType, SIGNAL( activated( int )), this, SLOT( updateRemoteID()));
 
-		connect( comboBoxP1Exchange, SIGNAL( activated( int ) ), this, SLOT( updatePhase1() ) );
-		connect( comboBoxP1Cipher, SIGNAL( activated( int ) ), this, SLOT( updatePhase1() ) );
+		connect( comboBoxP1Exchange, SIGNAL( activated( int )), this, SLOT( updatePhase1()));
+		connect( comboBoxP1Cipher, SIGNAL( activated( int )), this, SLOT( updatePhase1()));
 
-		connect( comboBoxP2Transform, SIGNAL( activated( int ) ), this, SLOT( updatePhase2() ) );
+		connect( comboBoxP2Transform, SIGNAL( activated( int )), this, SLOT( updatePhase2()));
 
-		connect( pushButtonPolicyAdd, SIGNAL( clicked() ), this, SLOT( policyAdd() ) );
-		connect( pushButtonPolicyMod, SIGNAL( clicked() ), this, SLOT( policyModify() ) );
-		connect( pushButtonPolicyDel, SIGNAL( clicked() ), this, SLOT( policyDelete() ) );
+		connect( pushButtonPolicyAdd, SIGNAL( clicked()), this, SLOT( policyAdd()));
+		connect( pushButtonPolicyMod, SIGNAL( clicked()), this, SLOT( policyModify()));
+		connect( pushButtonPolicyDel, SIGNAL( clicked()), this, SLOT( policyDelete()));
 
-		connect( toolButtonCAFile, SIGNAL( clicked() ), this, SLOT( inputCAFile() ) );
-		connect( toolButtonCertFile, SIGNAL( clicked() ), this, SLOT( inputCertFile() ) );
-		connect( toolButtonPKeyFile, SIGNAL( clicked() ), this, SLOT( inputPKeyFile() ) );
+		connect( toolButtonCAFile, SIGNAL( clicked()), this, SLOT( inputCAFile()));
+		connect( toolButtonCertFile, SIGNAL( clicked()), this, SLOT( inputCertFile()));
+		connect( toolButtonPKeyFile, SIGNAL( clicked()), this, SLOT( inputPKeyFile()));
 
-		connect( treeWidgetPolicies, SIGNAL( itemSelectionChanged() ), this, SLOT( updatePolicy() ) );
+		connect( treeWidgetPolicies, SIGNAL( itemSelectionChanged()), this, SLOT( updatePolicy()));
 	}
 
 	void init();
@@ -231,8 +236,8 @@ typedef class _qikeaConflict : public QDialog, public Ui::qikeaConflict
 	{
 		setupUi( this );
 
-		connect( buttonContinue, SIGNAL( clicked() ), this, SLOT( accept() ) );
-		connect( buttonOverwrite, SIGNAL( clicked() ), this, SLOT( reject() ) );
+		connect( buttonContinue, SIGNAL( clicked()), this, SLOT( accept()));
+		connect( buttonOverwrite, SIGNAL( clicked()), this, SLOT( reject()));
 	}
 
 	private slots:
@@ -249,8 +254,8 @@ typedef class _qikeaTopology : public QDialog, public Ui::qikeaTopology
 	{
 		setupUi( this );
 
-		connect( buttonOk, SIGNAL( clicked() ), this, SLOT( verify() ) );
-		connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
+		connect( buttonOk, SIGNAL( clicked()), this, SLOT( verify()));
+		connect( buttonCancel, SIGNAL( clicked()), this, SLOT( reject()));
 	}
 
 	private slots:
@@ -269,7 +274,7 @@ typedef class _qikeaAbout : public QDialog, public Ui::qikeaAbout
 	{
 		setupUi( this );
 
-		connect( buttonOk, SIGNAL( clicked() ), this, SLOT( accept() ) );
+		connect( buttonOk, SIGNAL( clicked()), this, SLOT( accept()));
 	}
 
 	private slots:

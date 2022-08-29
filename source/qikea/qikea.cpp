@@ -78,12 +78,23 @@ bool _QIKEA::init( qikeaRoot * setRoot )
 	}
 
 
-    r->listWidgetSites->setViewMode( QListView::ListMode );
-
 #define STREQ(A,B) (0==strcmp(A,B))
+
+    r->listWidgetSites->setViewMode( QListView::ListMode );
+    r->actionViewSmall->setChecked(true);
     if(STREQ("IconMode",persist_get("listWidgetSites"))){
         r->listWidgetSites->setViewMode( QListView::IconMode );
+        r->actionViewLarge->setChecked(true);
     }
+
+
+    r->toolBar->show();
+    if(STREQ("n",persist_get("toolBarVisible"))){
+        r->toolBar->hide();
+    };
+
+    // bocce ferme, apriamoci ai cambiamenti
+    persist_rdwr();
 
 	return true;
 }

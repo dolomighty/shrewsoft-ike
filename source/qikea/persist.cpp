@@ -17,6 +17,17 @@
 
 
 static std::unordered_map<std::string,std::string> persist;
+static bool rdwr = true;
+
+
+
+void persist_rdonly(){
+	rdwr = false;
+}
+
+void persist_rdwr(){
+	rdwr = true;
+}
 
 
 const char *get_persist_path(){
@@ -45,18 +56,20 @@ static void load_all(){
 		const char *val = strtok(0," \n");
 		if(!key)break;
 		persist[key]=val;
+//	    printf("%s %s\n",key,val);
 	}
 	fclose(f);
 }
 
 
 static void save_all(){
+	if(!rdwr)return;
 	FILE *f = fopen(get_persist_path(),"wb");
 	if(!f)return;
 	for( auto& it: persist) {
-	    auto line = it.first+" "+it.second;
+	    auto line = it.first+" "+it.second+"\n";
 	    fputs(line.c_str(),f);
-//	    printf("%s\n",line.c_str());
+//	    printf("%s",line.c_str());
 	}	
 	fclose(f);
 }
@@ -64,6 +77,7 @@ static void save_all(){
 
 const char *persist_get( const char *key ){
 	load_all();
+//    printf("%s\n",persist[key].c_str());
 	return persist[key].c_str();
 }
 

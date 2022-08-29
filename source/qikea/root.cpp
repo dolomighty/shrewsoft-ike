@@ -174,6 +174,11 @@ void _qikeaRoot::showViewSmall()
 	persist_set("listWidgetSites","ListMode");
 }
 
+void _qikeaRoot::toolbar_view_changed( bool visible )
+{
+	persist_set("toolBarVisible",visible?"y":"n");
+}
+
 void _qikeaRoot::siteConnect()
 {
 	QListWidgetItem * i = listWidgetSites->currentItem();
