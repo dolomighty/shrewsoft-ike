@@ -25,7 +25,7 @@ link_directories(
 
 
 
-
+# dumpa tutte le vars
 #get_cmake_property(_variableNames VARIABLES)
 #list (SORT _variableNames)
 #foreach (_variableName ${_variableNames})
@@ -57,6 +57,7 @@ add_executable(
 	root.cpp
 	site.cpp
 	topology.cpp
+	persist.cpp
 	${UIH_FILES}
 	${CXX_FILES}
 	${QRC_FILES} )
@@ -74,21 +75,6 @@ TARGET_LINK_LIBRARIES(
 	Qt5::Gui
 	Qt5::Widgets
 )
-
-
-#TARGET_LINK_LIBRARIES (
-##	${PCL_LIBRARIES} 
-##	${VTK_LIBRARIES}
-#	qikea
-#	ss_ike
-#	ss_idb
-#	ss_ith
-#	ss_log
-#	crypto
-#	pthread
-#	${QT_LIBRARIES} 
-#)
-
 
 
 
