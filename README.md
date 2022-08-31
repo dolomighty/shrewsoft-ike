@@ -51,17 +51,18 @@ cp -f sites/* ~/.ike/sites
 ```
 
 
-ikec si può lanciare in modo interattivo e non (utile per scripts in cli)
+le connessioni possono essere aperte anche via cli/script, non solo via gui   
+in questo caso si usa ikec, che si può lanciare in modo interattivo e non  
 
 interattivo
 ```
-qikec -a -r EXTDACON@dacvpn -u TELECOMITALIA\00519575
-
-verrà chiesta una pass (l'OTP di TIM Secure APP)
+ikec -a -r EXTDACON@dacvpn -u TELECOMITALIA\00519575
 ```
+poi verrà chiesta la pass (l'OTP di TIM Secure APP)
 
-non interattivo
+
+non interattivo, si da tutto da cli ed il processo termina alla disconnessione (oppure al ctrl-c)    
 ```
-qikec -n -a -r EXTDACON@dacvpn -u TELECOMITALIA\00519575 -p 12345 (l'OTP di TIM Secure APP)
+ikec -n -a -r EXTDACON@dacvpn -u TELECOMITALIA\00519575 -p 12345 (l'OTP di TIM Secure APP)
 ```
 
