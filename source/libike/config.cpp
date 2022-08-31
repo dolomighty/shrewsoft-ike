@@ -208,12 +208,12 @@ bool _CONFIG::add_string( const char * key, const char * val, size_t size )
 	{
 		cfgdat->vval.set( ",", 1, cfgdat->vval.size() - 1 );
 		cfgdat->vval.add( val, size );
-		cfgdat->vval.add( "", 1 );
+		cfgdat->vval.asciiz();
 	}
 	else
 	{
 		cfgdat->vval.add( val, size );
-		cfgdat->vval.add( "", 1 );
+		cfgdat->vval.asciiz();
 	}
 
 	return true;
@@ -229,12 +229,12 @@ bool _CONFIG::add_string( const char * key, BDATA & val )
 	{
 		cfgdat->vval.set( ",", 1, cfgdat->vval.size() - 1 );
 		cfgdat->vval.add( val );
-		cfgdat->vval.add( "", 1 );
+		cfgdat->vval.asciiz();
 	}
 	else
 	{
 		cfgdat->vval.add( val );
-		cfgdat->vval.add( "", 1 );
+		cfgdat->vval.asciiz();
 	}
 
 	return true;

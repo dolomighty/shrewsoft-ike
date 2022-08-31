@@ -656,7 +656,7 @@ bool _qikeaSite::load( CONFIG & config )
 	BDATA psk;
 	if( config.get_binary( "auth-mutual-psk", psk ) )
 	{
-		psk.add( "", 1 );
+		psk.asciiz();
 		lineEditPSK->setText( psk.text() );
 	}
 

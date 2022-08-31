@@ -54,6 +54,9 @@ typedef class DLX _BDATA
 	bool add( char * buff, size_t size );
 	bool add( const char * buff, size_t size );
 
+	// per leggibilità
+	bool asciiz(){ return add( "", 1 ); }
+
 	bool get( _BDATA & bdata, size_t size = BDATA_ALL );
 	bool get( void * buff, size_t size );
 	bool get( char * buff, size_t size );

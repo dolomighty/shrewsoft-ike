@@ -265,7 +265,7 @@ bool _CONFIG_MANAGER::file_vpn_load( CONFIG & config, const char * path, bool sa
 		if( !name.size() )
 			goto parse_fail;
 
-		name.add( "", 1 );
+		name.asciiz();
 
 		//
 		// check delim
@@ -292,7 +292,7 @@ bool _CONFIG_MANAGER::file_vpn_load( CONFIG & config, const char * path, bool sa
 			data.add( next, 1 );
 		}
 
-		data.add( "", 1 );
+		data.asciiz();
 
 		switch( type )
 		{
@@ -465,8 +465,8 @@ bool read_line_pcf( FILE * fp, BDATA & name, BDATA & data )
 			return false;
 		else
 		{
-			name.add( "", 1 );
-			data.add( "", 1 );
+			name.asciiz();
+			data.asciiz();
 			return true;
 		}
 	}
@@ -523,8 +523,8 @@ bool read_line_pcf( FILE * fp, BDATA & name, BDATA & data )
 	// null terminate values
 	//
 
-	name.add( "", 1 );
-	data.add( "", 1 );
+	name.asciiz();
+	data.asciiz();
 
 	return true;
 }

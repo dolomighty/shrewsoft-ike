@@ -60,7 +60,7 @@ bool _IKED::gen_ph1id_l( IDB_PH1 * ph1, IKE_PH1ID & ph1id )
 				{
 					BDATA temp;
 					temp = ph1->tunnel->peer->iddata_l;
-					temp.add( "", 1 );
+					temp.asciiz();
 
 					log.txt( LLOG_ERROR,
 						"!! : failed to generate local %s id from \'%s\'\n",
@@ -86,7 +86,7 @@ bool _IKED::gen_ph1id_l( IDB_PH1 * ph1, IKE_PH1ID & ph1id )
 			{
 				BDATA temp;
 				temp = ph1->tunnel->peer->iddata_l;
-				temp.add( "", 1 );
+				temp.asciiz();
 
 				ph1id.addr.s_addr = inet_addr( temp.text() );
 
@@ -150,7 +150,7 @@ bool _IKED::gen_ph1id_r( IDB_PH1 * ph1, IKE_PH1ID & ph1id )
 				{
 					BDATA temp;
 					temp = ph1->tunnel->peer->iddata_r;
-					temp.add( "", 1 );
+					temp.asciiz();
 
 					log.txt( LLOG_ERROR,
 						"!! : failed to generate remote %s id from \'%s\'\n",
@@ -170,7 +170,7 @@ bool _IKED::gen_ph1id_r( IDB_PH1 * ph1, IKE_PH1ID & ph1id )
 			{
 				BDATA temp;
 				temp = ph1->tunnel->peer->iddata_r;
-				temp.add( "", 1 );
+				temp.asciiz();
 
 				ph1id.addr.s_addr = inet_addr( temp.text() );
 

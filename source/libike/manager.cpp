@@ -137,7 +137,7 @@ bool _CONFIG_MANAGER::update_config( CONFIG & config )
 					{
 						BDATA path2;
 						path2.set( path );
-						path2.add( "", 1 );
+						path2.asciiz();
 
 						file_to_name( path2, name );
 						data.file_load( path2.text() );
@@ -159,7 +159,7 @@ bool _CONFIG_MANAGER::update_config( CONFIG & config )
 					{
 						BDATA path2;
 						path2.set( path );
-						path2.add( "", 1 );
+						path2.asciiz();
 
 						file_to_name( path2, name );
 						data.file_load( path2.text() );
@@ -181,7 +181,7 @@ bool _CONFIG_MANAGER::update_config( CONFIG & config )
 					{
 						BDATA path2;
 						path2.set( path );
-						path2.add( "", 1 );
+						path2.asciiz();
 
 						file_to_name( path2, name );
 						data.file_load( path2.text() );

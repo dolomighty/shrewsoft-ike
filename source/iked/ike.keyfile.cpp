@@ -182,7 +182,7 @@ bool cert_load_p12( BDATA & cert, FILE * fp, bool ca, BDATA & pass )
 	// PKCS12 required a null terminated password
 	BDATA nullpass;
 	nullpass.set( pass );
-	nullpass.add( "", 1 );
+	nullpass.asciiz();
 
 	fseek( fp, 0, SEEK_SET );
 
@@ -282,7 +282,7 @@ bool cert_load_p12( BDATA & cert, BDATA & input, bool ca, BDATA & pass )
 	// PKCS12 required a null terminated password
 	BDATA nullpass;
 	nullpass.set( pass );
-	nullpass.add( "", 1 );
+	nullpass.asciiz();
 
 	BIO * bp = BIO_new( BIO_s_mem() );
 	if( bp == NULL )
@@ -872,7 +872,7 @@ bool prvkey_rsa_load_p12( BDATA & prvkey, FILE * fp, BDATA & pass )
 	// PKCS12 required a null terminated password
 	BDATA nullpass;
 	nullpass.set( pass );
-	nullpass.add( "", 1 );
+	nullpass.asciiz();
 
 	fseek( fp, 0, SEEK_SET );
 
@@ -956,7 +956,7 @@ bool prvkey_rsa_load_p12( BDATA & prvkey, BDATA & input, BDATA & pass )
 	// PKCS12 required a null terminated password
 	BDATA nullpass;
 	nullpass.set( pass );
-	nullpass.add( "", 1 );
+	nullpass.asciiz();
 
 	BIO * bp = BIO_new( BIO_s_mem() );
 	if( bp == NULL )

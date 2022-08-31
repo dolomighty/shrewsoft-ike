@@ -75,16 +75,31 @@ bool _QIKEC::init( int argc, char ** argv, qikecRoot * setRoot )
 		return false;
 	}
 
+	// tiriamo su lo username dal file di conf
+	// credo esista una maniera migliore piuttosto che
+	// usare get_string ma... vedremo
+	BDATA un;
+	config.get_string( "client-saved-username", un, 0 );
+	if(un.size()){
+		un.asciiz();
+		// printf("un.text %s\n",un.text());
+		r->lineEditUsername->setText( un.text());
+		r->lineEditPassword->setFocus();
+	}
+
+	// se viene passato in cli lo sovrascriviamo
 	if( username.size())
 	{
-		username.add( "", 1 );
+		username.asciiz();
 		r->lineEditUsername->setText( username.text());
+		r->lineEditPassword->setFocus();
 	}
 
 	if( password.size())
 	{
-		password.add( "", 1 );
+		password.asciiz();
 		r->lineEditPassword->setText( password.text());
+		r->pushButtonConnect->setFocus();
 	}
 
 	if( !user_credentials())

@@ -2098,7 +2098,7 @@ long _IKED::config_xconf_get( IDB_CFG * cfg, long & getbits, long getmask, VENDO
 				{
 					BDATA appver;
 					appver = attr->vdata;
-					appver.add( "", 1 );
+					appver.asciiz();
 
 					log.txt( LLOG_DEBUG,
 						"ii : - Application Version = %s\n",

@@ -1458,7 +1458,7 @@ OPT_RESULT _CLIENT::read_opts( int argc, char ** argv )
 					sprintf_s( file_path, "%s\\Shrew Soft VPN\\sscp-login-info", temp_path );
 					if( site_name.file_load( file_path ))
 					{
-						site_name.add( "", 1 );
+						site_name.asciiz();
 						DeleteFile( file_path );
 						break;
 					}
