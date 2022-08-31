@@ -173,14 +173,21 @@ bool _QIKEC::log( long code, const char * format, ... )
 	// 2022-08-31 14:39:52
 	// aggiungiamo un timestamp al log in gui
 	time_t t = time(NULL);
-    struct tm *ltime = localtime(&t);
-    char tstamp[256];
-    strftime(tstamp,sizeof(tstamp),"%F %T",ltime);
-	char out[2048];
-	snprintf(out,sizeof(out),"%s %s",tstamp,buff);
+	static time_t prev_t = 0;
+    if(prev_t!=t){
+    	prev_t=t;
+	    struct tm *ltime = localtime(&t);
+	    static char prev_tstamp[256]="";
+	    char tstamp[256]="";
+	    strftime(tstamp,sizeof(tstamp),"%F %T\n",ltime);
+		QApplication::postEvent( r, new StatusEvent( tstamp, code ));
+    }
 
+//	char out[2048];
+//	snprintf(out,sizeof(out),"%s%s",tstamp,buff);
+//	QApplication::postEvent( r, new StatusEvent( out, code ));
 
-	QApplication::postEvent( r, new StatusEvent( out, code ));
+	QApplication::postEvent( r, new StatusEvent( buff, code ));
 
 	return true;
 }
