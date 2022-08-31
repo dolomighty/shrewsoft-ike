@@ -66,7 +66,7 @@ bool _QIKEC::init( int argc, char ** argv, qikecRoot * setRoot )
 		return false;
 	}
 
-	if( !qikec.config_load() )
+	if( !qikec.config_load())
 	{
 		r->lineEditUsername->setEnabled( false );
 		r->lineEditPassword->setEnabled( false );
@@ -75,19 +75,19 @@ bool _QIKEC::init( int argc, char ** argv, qikecRoot * setRoot )
 		return false;
 	}
 
-	if( username.size() )
+	if( username.size())
 	{
 		username.add( "", 1 );
-		r->lineEditUsername->setText( username.text() );
+		r->lineEditUsername->setText( username.text());
 	}
 
-	if( password.size() )
+	if( password.size())
 	{
 		password.add( "", 1 );
-		r->lineEditPassword->setText( password.text() );
+		r->lineEditPassword->setText( password.text());
 	}
 
-	if( !user_credentials() )
+	if( !user_credentials())
 		r->groupBoxCredentials->hide();
 
 	return true;
@@ -96,16 +96,16 @@ bool _QIKEC::init( int argc, char ** argv, qikecRoot * setRoot )
 bool _QIKEC::get_username()
 {
 	TextData data;
-	QApplication::postEvent( r, new UsernameEvent( &data ) );
+	QApplication::postEvent( r, new UsernameEvent( &data ));
 	while( data.result == -1 )
 		msleep( 10 );
 
-	if( !data.text.length() )
+	if( !data.text.length())
 		return false;
 
 	username.del();
 	username.set(
-		( const char * ) data.text.toUtf8(), data.text.length() );
+		( const char * ) data.text.toUtf8(), data.text.length());
 
 	return true;
 }
@@ -113,28 +113,28 @@ bool _QIKEC::get_username()
 bool _QIKEC::get_password()
 {
 	TextData data;
-	QApplication::postEvent( r, new PasswordEvent( &data ) );
+	QApplication::postEvent( r, new PasswordEvent( &data ));
 	while( data.result == -1 )
 		msleep( 10 );
 
-	if( !data.text.length() )
+	if( !data.text.length())
 		return false;
 
 	password.del();
 	password.set(
-		( const char * ) data.text.toUtf8(), data.text.length() );
+		( const char * ) data.text.toUtf8(), data.text.length());
 
 	return true;
 }
 
 bool _QIKEC::get_filepass( BDATA & path )
 {
-	log( STATUS_INFO, "file password required for %s\n", path.text() );
+	log( STATUS_INFO, "file password required for %s\n", path.text());
 
 	FilePassData PassData;
 	PassData.filepath = path.text();
 
-	QApplication::postEvent( r, new FilePassEvent( &PassData ) );
+	QApplication::postEvent( r, new FilePassEvent( &PassData ));
 	while( PassData.result == -1 )
 		msleep( 10 );
 
@@ -144,34 +144,43 @@ bool _QIKEC::get_filepass( BDATA & path )
 	QString text = PassData.password;
 	fpass.del();
 	fpass.set(
-		( const char * ) text.toUtf8(), text.length() );
+		( const char * ) text.toUtf8(), text.length());
 
 	return true;
 }
 
 bool _QIKEC::set_status( long status, BDATA * text )
 {
-	log( status, text->text() );
+	log( status, text->text());
 
 	return true;
 }
 
 bool _QIKEC::set_stats()
 {
-	QApplication::postEvent( r, new StatsEvent( stats ) );
+	QApplication::postEvent( r, new StatsEvent( stats ));
 
 	return true;
 }
 
 bool _QIKEC::log( long code, const char * format, ... )
 {
-	char buff[ 1024 ];
-	memset( buff, 0, sizeof( buff ) );
+	char buff[1024];
 	va_list list;
 	va_start( list, format );
-	vsnprintf( buff, sizeof( buff ), format, list );
+	vsnprintf( buff, sizeof(buff), format, list );
 
-	QApplication::postEvent( r, new StatusEvent( buff, code ) );
+	// 2022-08-31 14:39:52
+	// aggiungiamo un timestamp al log in gui
+	time_t t = time(NULL);
+    struct tm *ltime = localtime(&t);
+    char tstamp[256];
+    strftime(tstamp,sizeof(tstamp),"%F %T",ltime);
+	char out[2048];
+	snprintf(out,sizeof(out),"%s %s",tstamp,buff);
+
+
+	QApplication::postEvent( r, new StatusEvent( out, code ));
 
 	return true;
 }

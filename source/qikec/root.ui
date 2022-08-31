@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>409</width>
+    <width>668</width>
     <height>472</height>
    </rect>
   </property>
@@ -36,6 +36,9 @@
          <widget class="QTextBrowser" name="textBrowserStatus">
           <property name="styleSheet">
            <string notr="true"/>
+          </property>
+          <property name="lineWrapMode">
+           <enum>QTextEdit::NoWrap</enum>
           </property>
           <property name="readOnly">
            <bool>true</bool>
