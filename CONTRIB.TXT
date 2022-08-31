@@ -7,3 +7,7 @@ Added support for negotiating Cisco UDP encapsulation of ESP packets.
 NAME : Andrea Villa
 DATE : 2022-08-27
 updates	for ssl3/qt5 (ubuntu 22)
+gui fixes
+username from file
+timestamps in qikec log
+
