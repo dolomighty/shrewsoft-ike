@@ -8,6 +8,7 @@ NAME : Andrea Villa
 DATE : 2022-09-01
 updates	for ssl3/qt5 (ubuntu 22)
 gui fixes
+cli non-interactive mode
 username from file
 timestamps in qikec log
 username saved on connect
