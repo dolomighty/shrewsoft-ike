@@ -1581,6 +1581,37 @@ bool _CLIENT::config_load()
 	return true;
 }
 
+
+bool _CLIENT::config_save()
+{
+
+	if( !site_name.size())
+		return false;
+	
+	config.set_id( site_name.text());
+
+	bool saved = manager.file_vpn_save( config );
+
+	if( !saved )
+	{
+		log( STATUS_FAIL, "failed to save \'%s\'\n",
+			site_name.text());
+
+		return false;
+	}
+
+	log( STATUS_INFO, "config saved for site \'%s\'\n",
+		site_name.text());
+
+	return true;
+}
+
+
+
+
+
+
+
 bool _CLIENT::auto_connect()
 {
 	return autoconnect;

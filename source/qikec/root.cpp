@@ -262,7 +262,13 @@ void _qikecRoot::siteConnect()
 			}
 		}
 
-		// call ikec connect function
+		// salviamo lo username
+		qikec.config.set_string( "client-saved-username",
+			(const char *)	lineEditUsername->text().toUtf8(),
+							lineEditUsername->text().length()
+		);
+
+		qikec.config_save();
 
 		qikec.vpn_connect( false );
 	}
