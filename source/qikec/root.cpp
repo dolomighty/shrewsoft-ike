@@ -117,7 +117,7 @@ void _qikecRoot::customEvent( QEvent * e )
 				pushButtonConnect->setText( "Connect" );
 				pushButtonExit->setEnabled( true );
 				pushButtonExit->setText( "Cancel" );
-				textBrowserStatus->insertPlainText( "bringing up tunnel ...\n" );
+				textBrowserStatus->insertPlainText( "bringing up tunnel\n" );
 				break;
 
 			case STATUS_CONNECTED:
@@ -135,7 +135,7 @@ void _qikecRoot::customEvent( QEvent * e )
 				pushButtonConnect->setText( "Disconnect" );
 				pushButtonExit->setEnabled( false );
 				pushButtonExit->setText( "Exit" );
-				textBrowserStatus->insertPlainText( "bringing down tunnel ...\n" );
+				textBrowserStatus->insertPlainText( "bringing down tunnel\n" );
 				break;
 
 			case STATUS_INFO:
