@@ -836,6 +836,8 @@ bool _qikeaSite::save( CONFIG & config )
 {
 	// remote name or address
 
+	printf("_qikeaSite::save\n");
+
 	config.set_string( "network-host",
 		lineEditHost->text().toUtf8(),
 		lineEditHost->text().length() );
