@@ -830,7 +830,7 @@ bool _CLIENT::run_init()
 		return false;
 	}
 
-	log( STATUS_INFO, "attached to key daemon ...\n" );
+	log( STATUS_INFO, "attached to key daemon\n" );
 
 	//
 	// send the peer configuration message
@@ -1701,7 +1701,7 @@ bool _CLIENT::vpn_resume()
 		return false;
 	}
 
-	log( STATUS_INFO, "attached to key daemon ...\n" );
+	log( STATUS_INFO, "attached to key daemon\n" );
 
 	IKEI_MSG msg;
 	msg.set_suspend( 0 );

@@ -93,7 +93,7 @@ bool _IKEC::set_status( long status, BDATA * text )
 			break;
 
 		case STATUS_CONNECTING:
-			log( status, "bringing up tunnel ...\n" );
+			log( status, "bringing up tunnel\n" );
 			break;
 
 		case STATUS_CONNECTED:
