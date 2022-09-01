@@ -34,6 +34,8 @@ il file script/linux/nm/ike-routes è uno script per network manager
 fa si di installare automaticamente delle rotte quando il tunnel sale  
 i privati andranno sul tunnel, i pubblici useranno il normale routing di casa  
 va copiato in /etc/NetworkManager/dispatcher.d/  
+/opzionale, le rotte si possono configurare via qikea/  
+
 
 ```
 sudo cp script/linux/nm/ike-routes /etc/NetworkManager/dispatcher.d/
