@@ -832,11 +832,19 @@ bool _qikeaSite::load( CONFIG & config )
 	return true;
 }
 
+
+
+
+
+
+
+
+
 bool _qikeaSite::save( CONFIG & config )
 {
 	// remote name or address
 
-	printf("_qikeaSite::save\n");
+//	printf("_qikeaSite::save\n");
 
 	config.set_string( "network-host",
 		lineEditHost->text().toUtf8(),
@@ -1428,6 +1436,11 @@ bool _qikeaSite::save( CONFIG & config )
 
 	return true;
 }
+
+
+
+
+
 
 bool _qikeaSite::verify()
 {
